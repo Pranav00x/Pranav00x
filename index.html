@@ -4,16 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRANAV00X // SYSTEM_ROOT</title>
+    <title>PRANAV00X</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400&display=swap');
 
         :root {
-            --bg: #000000;
-            --term-green: #3DDC84;
-            --term-dim: #1a5c38;
-            --text-main: #e0e0e0;
-            --glass: rgba(10, 10, 10, 0.8);
+            --bg: #080808;
+            --fg: #e6e6e6;
+            --accent: #3DDC84;
+            --border: #333;
         }
 
         * {
@@ -24,214 +23,144 @@
 
         body {
             background-color: var(--bg);
-            color: var(--text-main);
-            font-family: 'JetBrains Mono', monospace;
+            color: var(--fg);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.2;
             height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.4;
-        }
-
-        .scanline {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2));
-            background-size: 100% 4px;
-            z-index: 999;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
-        .terminal-window {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 700px;
-            background: var(--glass);
-            border: 1px solid #333;
-            border-radius: 4px;
-            box-shadow: 0 0 40px rgba(61, 220, 132, 0.05);
-            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
-            transition: border-color 0.3s ease;
+            overflow: hidden;
+            /* Prevent scrolling for sleek feel */
         }
 
-        .terminal-window:hover {
-            border-color: var(--term-dim);
+        /* --- GRID LAYOUT --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            /* Main content | Sidebar */
+            grid-template-rows: 1fr auto;
+            /* Content | Footer */
+            height: 100%;
+            border: 1px solid var(--border);
+            margin: 20px;
         }
 
-        .terminal-header {
-            background: #111;
-            padding: 10px 15px;
+        /* --- SECTIONS --- */
+        .main-stage {
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 60px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .sidebar {
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-item {
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+            display: flex;
             align-items: center;
-            border-bottom: 1px solid #333;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+            color: var(--fg);
+        }
+
+        .sidebar-item:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-item:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .logo-area {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             color: #666;
         }
 
-        .dots {
-            display: flex;
-            gap: 6px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #333;
-        }
-
-        .dot.red {
-            background: #ff5f56;
-        }
-
-        .dot.yellow {
-            background: #ffbd2e;
-        }
-
-        .dot.green {
-            background: #27c93f;
-        }
-
-        .terminal-content {
-            padding: 30px;
-            min-height: 300px;
-        }
-
-        .command-line {
-            display: flex;
-            margin-bottom: 20px;
-            font-size: 1rem;
-        }
-
-        .prompt {
-            color: var(--term-green);
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        .cursor {
-            width: 8px;
-            height: 18px;
-            background: var(--term-green);
-            animation: blink 1s step-end infinite;
-            display: inline-block;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-
-        @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0;
-            }
-        }
-
-        .output {
-            color: var(--text-main);
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .highlight {
-            color: var(--term-green);
-            text-shadow: 0 0 5px rgba(61, 220, 132, 0.5);
-        }
-
-        .hero-title {
-            font-size: 2.5rem;
+        h1 {
+            font-size: 8vw;
             font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: -2px;
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 20px;
+            letter-spacing: -3px;
+        }
+
+        h1 span {
+            color: var(--border);
+            /* Dimmed effect */
+            -webkit-text-stroke: 1px var(--fg);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            max-width: 600px;
+            font-weight: 300;
+            color: #888;
+        }
+
+        .accent-text {
+            color: var(--accent);
+        }
+
+        .footer {
+            grid-column: 1 / -1;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            color: #555;
             text-transform: uppercase;
         }
 
-        .grid-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-            opacity: 0;
-            animation: fadeIn 0.5s ease forwards 1.5s;
-            /* Delayer fade in */
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .link-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid #333;
-            color: #888;
-            text-decoration: none;
-            padding: 15px;
-            text-align: center;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .link-btn:hover {
-            background: rgba(61, 220, 132, 0.1);
-            border-color: var(--term-green);
-            color: var(--term-green);
-            transform: translateY(-2px);
-        }
-
-        .link-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(61, 220, 132, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .link-btn:hover::before {
-            left: 100%;
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 600px) {
-            .hero-title {
-                font-size: 1.8rem;
+        /* --- MOBILE ADJUSTMENTS --- */
+        @media (max-width: 900px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr auto;
+                margin: 0;
+                border: none;
             }
 
-            .terminal-window {
-                width: 95%;
-                margin: 10px;
+            .main-stage {
+                border-right: none;
+                padding: 40px 20px;
+                min-height: 50vh;
             }
 
-            .grid-links {
-                grid-template-columns: 1fr 1fr;
+            h1 {
+                font-size: 15vw;
+            }
+
+            .sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .sidebar-item {
+                border-right: 1px solid var(--border);
+                border-bottom: none;
+                padding: 20px;
             }
         }
     </style>
@@ -239,152 +168,48 @@
 
 <body>
 
-    <div class="scanline"></div>
-    <canvas id="networkCanvas"></canvas>
+    <div class="grid-container">
 
-    <div class="terminal-window">
-        <div class="terminal-header">
-            <div class="dots">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
-            </div>
-            <div>pranav@system-root:~</div>
-        </div>
-        <div class="terminal-content">
-            <div class="command-line">
-                <span class="prompt">root@pranav00x:~$</span>
-                <span id="typewriter"></span><span class="cursor"></span>
-            </div>
+        <!-- MAIN CONTENT AREA -->
+        <div class="main-stage">
+            <div class="logo-area">ID: PRANAV00X // v2.0</div>
 
-            <div id="bio-output" style="display: none;">
-                <div class="output">
-                    > INITIATING SEQUENCE... <br>
-                    > LOADED MODULES: [ANDROID] [WEB3] [PRIVACY_TOOLS] <br>
-                    > STATUS: <span class="highlight">ONLINE & ENCRYPTED</span>
-                </div>
+            <h1>
+                System<br>
+                <span class="accent-text">Architect</span>
+            </h1>
 
-                <h1 class="hero-title">PRANAV<span class="highlight">00X</span></h1>
-
-                <p class="output" style="max-width: 500px">
-                    Architecting decentralized systems and stripping mobile OS to the bare metal.
-                    Obsessed with <span class="highlight">Privacy</span>, <span class="highlight">Security</span>, and
-                    <span class="highlight">Performance</span>.
-                </p>
-
-                <div class="grid-links">
-                    <a href="https://github.com/Pranav00x" target="_blank" class="link-btn">GITHUB</a>
-                    <a href="https://x.com/pranav0x" target="_blank" class="link-btn">X / TWITTER</a>
-                    <a href="https://t.me/pranav0x" target="_blank" class="link-btn">TELEGRAM</a>
-                    <a href="mailto:connect@pranav0x.in" class="link-btn">CONTACT</a>
-                </div>
+            <div class="subtitle">
+                Designing trustless infrastructure and optimized mobile environments.
+                <span class="accent-text">Privacy is not optional.</span>
             </div>
         </div>
+
+        <!-- RIGHT SIDE NAVIGATION -->
+        <div class="sidebar">
+            <a href="https://github.com/Pranav00x" target="_blank" class="sidebar-item">
+                Github ->
+            </a>
+            <a href="https://x.com/pranav0x" target="_blank" class="sidebar-item">
+                Twitter ->
+            </a>
+            <a href="https://t.me/pranav0x" target="_blank" class="sidebar-item">
+                Telegram ->
+            </a>
+            <a href="mailto:connect@pranav0x.in" class="sidebar-item">
+                Email ->
+            </a>
+        </div>
+
+        <!-- FOOTER INFO -->
+        <div class="footer">
+            <span>Specialization: AOSP / DEFI / SECURITY</span>
+            <span>Loc: Global</span>
+            <span>Status: Online</span>
+        </div>
+
     </div>
 
-    <script>
-        // --- Typewriter Effect ---
-        const textToType = "./init_profile.sh";
-        const typeWriterElement = document.getElementById('typewriter');
-        const bioOutput = document.getElementById('bio-output');
-        let i = 0;
-
-        function typeWriter() {
-            if (i < textToType.length) {
-                typeWriterElement.innerHTML += textToType.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100); // Typing speed
-            } else {
-                // Determine completion
-                setTimeout(() => {
-                    document.querySelector('.command-line').style.marginBottom = '30px';
-                    bioOutput.style.display = 'block';
-                }, 400);
-            }
-        }
-
-        // Start typing after a short delay
-        setTimeout(typeWriter, 500);
-
-
-        // --- Matrix/Network Canvas Effect ---
-        const canvas = document.getElementById('networkCanvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(61, 220, 132, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            const particleCount = Math.min(window.innerWidth / 10, 100); // Responsive count
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
-
-                // Draw connections
-                for (let j = index; j < particles.length; j++) {
-                    const dx = particles[j].x - p.x;
-                    const dy = particles[j].y - p.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(61, 220, 132, ${0.1 * (1 - distance / 150)})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        initParticles();
-        animate();
-
-    </script>
 </body>
 
 </html>
