@@ -4,16 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRANAV00X // HOME</title>
+    <title>PRANAV00X</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;700&display=swap');
 
         :root {
-            --bg: #121212;
-            --text: #ffffff;
+            --bg: #0d0d0d;
+            --card-bg: #141414;
+            --card-hover: #1a1a1a;
+            --text-main: #ffffff;
+            --text-dim: #888;
             --accent: #3DDC84;
-            /* Android Green */
-            --dim: rgba(255, 255, 255, 0.4);
+            --border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         * {
@@ -24,278 +26,286 @@
 
         body {
             background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            height: 100vh;
-            overflow: hidden;
+            color: var(--text-main);
+            font-family: 'Manrope', sans-serif;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            padding: 40px 20px;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        /* SCREEN CONTAINER (Limits width like a phone on desktop) */
-        .screen {
-            max-width: 480px;
+        /* GRID CONTAINER */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 15px;
             width: 100%;
-            margin: 0 auto;
-            height: 100%;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+            /* Maintain general shape */
+        }
+
+        /* CARD BASE */
+        .card {
+            background: var(--card-bg);
+            border: var(--border);
+            border-radius: 20px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
         }
 
-        /* --- WIDGET AREA (TOP) --- */
-        .widget-area {
-            margin-top: 40px;
+        .card:hover {
+            background: var(--card-hover);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
-        .clock {
-            font-size: 4rem;
-            font-weight: 300;
-            line-height: 1;
-            letter-spacing: -2px;
+        /* --- SPECIFIC CARDS --- */
+
+        /* PROFILE (Large, Top Left) */
+        .card-profile {
+            grid-column: span 2;
+            grid-row: span 2;
         }
 
-        .date {
-            font-size: 1.2rem;
-            color: var(--dim);
-            margin-bottom: 30px;
-            font-weight: 500;
-        }
-
-        .weather-widget {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .bio-widget {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: #ddd;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* --- APP LIST (Favorites) --- */
-        .app-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .app-item {
+        .profile-header {
             display: flex;
             align-items: center;
             gap: 15px;
-            text-decoration: none;
-            color: var(--text);
-            padding: 12px;
-            border-radius: 12px;
-            transition: background 0.2s;
+            margin-bottom: 15px;
         }
 
-        .app-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .app-icon {
-            width: 40px;
-            height: 40px;
+        .avatar {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            /* Circle icons */
-            display: flex;
+            background: #333;
+            object-fit: cover;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(61, 220, 132, 0.1);
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        /* DESCRIPTION (Tall, Right) */
+        .card-bio {
+            grid-column: span 2;
+            grid-row: span 1;
+            justify-content: center;
+        }
+
+        /* SOCIALS (Small squares) */
+        .card-social {
+            grid-column: span 1;
+            grid-row: span 1;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
         }
 
-        /* Icon Colors */
-        .github .app-icon {
-            background: #333;
-            color: white;
+        .social-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
         }
 
-        .twitter .app-icon {
-            background: #000;
-            color: white;
+        /* STACK (Wide, Bottom) */
+        .card-stack {
+            grid-column: span 2;
+            grid-row: span 2;
         }
 
-        .telegram .app-icon {
-            background: #2CA5E0;
-            color: white;
+        .stack-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
         }
 
-        .mail .app-icon {
-            background: #EA4335;
-            color: white;
-        }
-
-        .app-name {
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
-
-        .app-desc {
+        .stack-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 0.8rem;
-            color: var(--dim);
+            color: var(--text-dim);
         }
 
-        /* --- ALPHABET SCROLL (Decorative) --- */
-        .alphabet {
+        /* LOCATION (Map) */
+        .card-map {
+            grid-column: span 1;
+            grid-row: span 1;
+            background: #1a1a1a;
+            position: relative;
+        }
+
+        .map-bg {
             position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.2);
-            align-items: center;
-            cursor: default;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            background-image: radial-gradient(#444 1px, transparent 1px);
+            background-size: 10px 10px;
         }
 
-        /* SEARCH BAR (Visual only) */
-        .search-bar {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 12px 20px;
-            margin-bottom: 20px;
-            color: var(--dim);
+        /* TEXT STYLES */
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
             font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: var(--text-dim);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
-        /* ANIMATION */
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .arrow-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            opacity: 0.5;
+            transition: transform 0.3s;
+        }
+
+        .card:hover .arrow-icon {
+            transform: translate(5px, -5px);
+            opacity: 1;
+            color: var(--text-main);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                aspect-ratio: auto;
+                display: flex;
+                flex-direction: column;
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            body {
+                padding: 15px;
             }
-        }
-
-        .app-item {
-            animation: slideUp 0.4s ease forwards;
-            opacity: 0;
-        }
-
-        .app-item:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .app-item:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .app-item:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .app-item:nth-child(4) {
-            animation-delay: 0.4s;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="screen">
+    <div class="bento-grid">
 
-        <!-- TOP SECTION: Widgets -->
-        <div class="widget-area">
-            <div class="clock" id="clock">00:00</div>
-            <div class="date" id="date">Sun, Jan 4</div>
-
-            <div class="weather-widget">
-                <span>⚡</span> 100% Battery • System Rooted
+        <!-- 1. PROFILE -->
+        <div class="card card-profile">
+            <div class="profile-header">
+                <img src="https://github.com/Pranav00x.png" alt="Profile" class="avatar">
+                <div>
+                    <h1>Pranav</h1>
+                    <div style="color: #666; font-size: 0.9rem;">@Pranav0x</div>
+                </div>
             </div>
 
-            <div class="bio-widget">
-                <b>Pranav00x</b>
-                <div style="font-size: 0.85rem; color: #aaa; margin-top: 4px;">
-                    Developing privacy-focused Android ROMs and decentralized applications.
-                </div>
+            <p>
+                <b>System Architect & Privacy Advocate.</b><br>
+                Specializing in building trustless infrastructure and stripped-down Android environments.
+            </p>
+
+            <div class="status-badge" style="margin-top: 20px;">
+                <span class="status-dot"></span> Available for work
             </div>
         </div>
 
-        <!-- SEARCH BAR (Decorative) -->
-        <!-- <div class="search-bar">
-            <span>🔍</span> Search apps...
-        </div> -->
+        <!-- 2. GITHUB -->
+        <a href="https://github.com/Pranav00x" target="_blank" class="card card-social">
+            <div class="arrow-icon">↗</div>
+            <div class="social-icon">⌘</div> <!-- Command icon as abstract representation or use SVG -->
+            <h2>GitHub</h2>
+        </a>
 
-        <!-- BOTTOM SECTION: App List (Niagara Style) -->
-        <div class="app-list">
-            <a href="https://github.com/Pranav00x" target="_blank" class="app-item github">
-                <div class="app-icon">G</div>
-                <div>
-                    <div class="app-name">Github</div>
-                    <div class="app-desc">Code Repositories</div>
-                </div>
-            </a>
+        <!-- 3. TWITTER -->
+        <a href="https://x.com/pranav0x" target="_blank" class="card card-social">
+            <div class="arrow-icon">↗</div>
+            <div class="social-icon">✕</div>
+            <h2>Twitter</h2>
+        </a>
 
-            <a href="https://x.com/pranav0x" target="_blank" class="app-item twitter">
-                <div class="app-icon">X</div>
-                <div>
-                    <div class="app-name">X / Twitter</div>
-                    <div class="app-desc">Social Feed</div>
-                </div>
-            </a>
-
-            <a href="https://t.me/pranav0x" target="_blank" class="app-item telegram">
-                <div class="app-icon">T</div>
-                <div>
-                    <div class="app-name">Telegram</div>
-                    <div class="app-desc">Direct Message</div>
-                </div>
-            </a>
-
-            <a href="mailto:connect@pranav0x.in" class="app-item mail">
-                <div class="app-icon">@</div>
-                <div>
-                    <div class="app-name">Mail</div>
-                    <div class="app-desc">connect@pranav0x.in</div>
-                </div>
-            </a>
+        <!-- 4. TECH STACK -->
+        <div class="card card-stack">
+            <h2>Core Stack</h2>
+            <div class="stack-list">
+                <span class="stack-tag">Kotlin</span>
+                <span class="stack-tag">Android SDK</span>
+                <span class="stack-tag">AOSP</span>
+                <span class="stack-tag">Solidity</span>
+                <span class="stack-tag">Rust</span>
+                <span class="stack-tag">Next.js</span>
+                <span class="stack-tag">Linux Kernel</span>
+                <span class="stack-tag">Bash</span>
+            </div>
         </div>
 
-        <!-- RIGHT SIDE: Alphabet (Visual) -->
-        <div class="alphabet">
-            <span>A</span><span>.</span><span>G</span><span>.</span><span>M</span><span>.</span><span>P</span><span>.</span><span>T</span><span>.</span><span>Z</span>
+        <!-- 5. TELEGRAM -->
+        <a href="https://t.me/pranav0x" target="_blank" class="card card-social">
+            <div class="arrow-icon">↗</div>
+            <div class="social-icon">✈</div>
+            <h2>Telegram</h2>
+        </a>
+
+        <!-- 6. MAIL -->
+        <a href="mailto:connect@pranav0x.in" class="card card-social">
+            <div class="arrow-icon">↗</div>
+            <div class="social-icon">@</div>
+            <h2>Mail</h2>
+        </a>
+
+        <!-- 7. LOCATION -->
+        <div class="card card-map">
+            <div class="map-bg"></div>
+            <div style="position: relative; z-index: 2;">
+                <h2>Base</h2>
+                <div style="font-size: 1.2rem; font-weight: 700;">Global</div>
+                <div style="color: #666; font-size: 0.8rem;">Remote / Async</div>
+            </div>
         </div>
 
     </div>
 
-    <script>
-        function updateTime() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('clock').innerText = `${hours}:${minutes}`;
-
-            const options = { weekday: 'short', month: 'short', day: 'numeric' };
-            document.getElementById('date').innerText = now.toLocaleDateString('en-US', options);
-        }
-
-        setInterval(updateTime, 1000);
-        updateTime();
-    </script>
 </body>
 
 </html>
