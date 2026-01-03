@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRANAV00X</title>
+    <title>PRANAV00X // HOME</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&display=swap');
 
         :root {
-            --bg: #0a0a0a;
-            --fg: #f0f0f0;
-            --dim: #555;
+            --bg: #121212;
+            --text: #ffffff;
             --accent: #3DDC84;
-            --border-color: #333;
+            /* Android Green */
+            --dim: rgba(255, 255, 255, 0.4);
         }
 
         * {
@@ -24,159 +24,278 @@
 
         body {
             background-color: var(--bg);
-            color: var(--fg);
-            font-family: 'Fira Code', monospace;
-            font-size: 14px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            flex-direction: column;
+            padding: 40px 20px;
         }
 
-        .interface {
+        /* SCREEN CONTAINER (Limits width like a phone on desktop) */
+        .screen {
+            max-width: 480px;
             width: 100%;
-            max-width: 500px;
-            border: 1px solid var(--border-color);
-            background: #000;
-        }
-
-        /* HEADER */
-        .header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
+            margin: 0 auto;
+            height: 100%;
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
+            position: relative;
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-            box-shadow: 0 0 5px var(--accent);
+        /* --- WIDGET AREA (TOP) --- */
+        .widget-area {
+            margin-top: 40px;
         }
 
-        /* SECTIONS */
-        .section {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
+        .clock {
+            font-size: 4rem;
+            font-weight: 300;
+            line-height: 1;
+            letter-spacing: -2px;
         }
 
-        .section-label {
+        .date {
+            font-size: 1.2rem;
             color: var(--dim);
-            font-size: 10px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
+            margin-bottom: 30px;
+            font-weight: 500;
         }
 
-        /* BIO */
-        .bio-text {
-            line-height: 1.6;
-            color: #ccc;
-        }
-
-        .keyword {
-            color: var(--accent);
-        }
-
-        /* LINKS LIST */
-        .link-row {
+        .weather-widget {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px dashed var(--border-color);
+            gap: 10px;
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .bio-widget {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- APP LIST (Favorites) --- */
+        .app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .app-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             text-decoration: none;
-            color: var(--fg);
+            color: var(--text);
+            padding: 12px;
+            border-radius: 12px;
             transition: background 0.2s;
         }
 
-        .link-row:last-child {
-            border-bottom: none;
+        .app-item:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .link-row:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .link-arrow {
-            color: var(--dim);
-        }
-
-        .link-row:hover .link-arrow {
-            color: var(--accent);
-        }
-
-        /* FOOTER */
-        .footer {
-            padding: 15px 20px;
-            font-size: 10px;
-            color: var(--dim);
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            /* Circle icons */
             display: flex;
-            justify-content: space-between;
-            background: #050505;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Icon Colors */
+        .github .app-icon {
+            background: #333;
+            color: white;
+        }
+
+        .twitter .app-icon {
+            background: #000;
+            color: white;
+        }
+
+        .telegram .app-icon {
+            background: #2CA5E0;
+            color: white;
+        }
+
+        .mail .app-icon {
+            background: #EA4335;
+            color: white;
+        }
+
+        .app-name {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .app-desc {
+            font-size: 0.8rem;
+            color: var(--dim);
+        }
+
+        /* --- ALPHABET SCROLL (Decorative) --- */
+        .alphabet {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.2);
+            align-items: center;
+            cursor: default;
+        }
+
+        /* SEARCH BAR (Visual only) */
+        .search-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            color: var(--dim);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ANIMATION */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .app-item {
+            animation: slideUp 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        .app-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .app-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .app-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .app-item:nth-child(4) {
+            animation-delay: 0.4s;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="interface">
-        <div class="header">
-            <div>
-                <strong>PRANAV00X</strong>
-                <div style="font-size: 10px; color: var(--dim); margin-top: 5px;">SYSTEM_ID: UID_0</div>
-            </div>
-            <div style="font-size: 10px;">
-                <span class="status-dot"></span>ONLINE
-            </div>
-        </div>
+    <div class="screen">
 
-        <div class="section">
-            <div class="section-label">Manifesto</div>
-            <div class="bio-text">
-                Developing <span class="keyword">privacy-focused</span> mobile environments and <span
-                    class="keyword">decentralized</span> infrastructure.
-                <br><br>
-                Core objectives include AOSP kernel optimization, telemetry removal, and smart contract deployment.
+        <!-- TOP SECTION: Widgets -->
+        <div class="widget-area">
+            <div class="clock" id="clock">00:00</div>
+            <div class="date" id="date">Sun, Jan 4</div>
+
+            <div class="weather-widget">
+                <span>⚡</span> 100% Battery • System Rooted
+            </div>
+
+            <div class="bio-widget">
+                <b>Pranav00x</b>
+                <div style="font-size: 0.85rem; color: #aaa; margin-top: 4px;">
+                    Developing privacy-focused Android ROMs and decentralized applications.
+                </div>
             </div>
         </div>
 
-        <div class="section" style="padding: 0;">
-            <div class="section-label" style="padding: 20px 20px 0 20px;">Uplinks</div>
+        <!-- SEARCH BAR (Decorative) -->
+        <!-- <div class="search-bar">
+            <span>🔍</span> Search apps...
+        </div> -->
 
-            <a href="https://github.com/Pranav00x" target="_blank" class="link-row">
-                <span>GITHUB_REPO</span>
-                <span class="link-arrow">-></span>
+        <!-- BOTTOM SECTION: App List (Niagara Style) -->
+        <div class="app-list">
+            <a href="https://github.com/Pranav00x" target="_blank" class="app-item github">
+                <div class="app-icon">G</div>
+                <div>
+                    <div class="app-name">Github</div>
+                    <div class="app-desc">Code Repositories</div>
+                </div>
             </a>
 
-            <a href="https://x.com/pranav0x" target="_blank" class="link-row">
-                <span>X_FEED</span>
-                <span class="link-arrow">-></span>
+            <a href="https://x.com/pranav0x" target="_blank" class="app-item twitter">
+                <div class="app-icon">X</div>
+                <div>
+                    <div class="app-name">X / Twitter</div>
+                    <div class="app-desc">Social Feed</div>
+                </div>
             </a>
 
-            <a href="https://t.me/pranav0x" target="_blank" class="link-row">
-                <span>SECURE_MSG</span>
-                <span class="link-arrow">-></span>
+            <a href="https://t.me/pranav0x" target="_blank" class="app-item telegram">
+                <div class="app-icon">T</div>
+                <div>
+                    <div class="app-name">Telegram</div>
+                    <div class="app-desc">Direct Message</div>
+                </div>
             </a>
 
-            <a href="mailto:connect@pranav0x.in" class="link-row">
-                <span>MAIL_RELAY</span>
-                <span class="link-arrow">-></span>
+            <a href="mailto:connect@pranav0x.in" class="app-item mail">
+                <div class="app-icon">@</div>
+                <div>
+                    <div class="app-name">Mail</div>
+                    <div class="app-desc">connect@pranav0x.in</div>
+                </div>
             </a>
         </div>
 
-        <div class="footer">
-            <span>KEY: 0x3D...84</span>
-            <span>LOC: GLOBAL</span>
+        <!-- RIGHT SIDE: Alphabet (Visual) -->
+        <div class="alphabet">
+            <span>A</span><span>.</span><span>G</span><span>.</span><span>M</span><span>.</span><span>P</span><span>.</span><span>T</span><span>.</span><span>Z</span>
         </div>
+
     </div>
 
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').innerText = `${hours}:${minutes}`;
+
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            document.getElementById('date').innerText = now.toLocaleDateString('en-US', options);
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
 </body>
 
 </html>
