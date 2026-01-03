@@ -64,9 +64,6 @@
 </div>
 <br>
 
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Pranav00x&show_icons=true&hide_border=true&bg_color=0d1117&title_color=3DDC84&text_color=ffffff&icon_color=3DDC84&include_all_commits=true" width="48%" />
-  <img src="https://streak-stats.demolab.com?user=Pranav00x&mode=weekly&hide_border=true&background=0d1117&ring=3DDC84&fire=3DDC84&currStreakLabel=3DDC84&sideNums=ffffff&sideLabels=ffffff" width="48%" />
-</div>
+
 
 </div>
