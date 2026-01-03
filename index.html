@@ -4,150 +4,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FASTBOOT MODE</title>
+    <title>PRANAV00X // SYSTEM_ROOT</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700&display=swap');
 
         :root {
-            --bg: #000;
-            --text: #fff;
-            --highlight: #00ff00;
-            /* Green usually, sometimes blue/red depending on device */
-            --header: #d32f2f;
-            /* The iconic red FASTBOOT text */
-            --dim: #888;
+            --bg: #000000;
+            --term-green: #3DDC84;
+            --term-dim: #1a5c38;
+            --text-main: #e0e0e0;
+            --glass: rgba(10, 10, 10, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Roboto Mono', monospace;
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', monospace;
             height: 100vh;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-transform: uppercase;
             overflow: hidden;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 400px;
-            /* Phone width approx */
-            padding: 20px;
-        }
-
-        /* THE ROBOT */
-        .android-bot {
-            width: 100px;
-            margin: 0 auto 40px auto;
-            display: block;
-            fill: #3DDC84;
-            opacity: 0.8;
-        }
-
-        /* HEADER TEXT */
-        .fastboot-header {
-            color: var(--header);
-            font-weight: 700;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
-        }
-
-        /* DEVICE INFO BLOCK */
-        .device-info {
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: var(--text);
-            margin-bottom: 40px;
-        }
-
-        .info-row {
             display: flex;
-            gap: 10px;
+            justify-content: center;
+            align-items: center;
         }
 
-        .label {
-            color: var(--text);
-        }
-
-        .value {
-            color: var(--dim);
-        }
-
-        /* MENU SELECTION */
-        .menu {
-            border-top: 1px solid #333;
-            padding-top: 20px;
-        }
-
-        .menu-instruction {
-            color: var(--highlight);
-            font-size: 0.75rem;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .menu-item {
-            display: block;
-            color: var(--dim);
-            text-decoration: none;
-            padding: 12px 15px;
-            border: 1px solid #333;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .menu-item:hover {
-            border-color: var(--highlight);
-            color: var(--highlight);
-            background: rgba(0, 255, 0, 0.05);
-            /* Simulate 'Selected' state */
-        }
-
-        .menu-item::before {
-            content: 'START';
-            font-size: 0.7rem;
-            display: block;
-            color: #555;
-            font-weight: 400;
-            margin-bottom: 2px;
-        }
-
-        /* Customize labels for specific links */
-        .menu-item.github::before {
-            content: 'BOOT TO RECOVERY';
-        }
-
-        .menu-item.twitter::before {
-            content: 'REBOOT SYSTEM';
-        }
-
-        .menu-item.contact::before {
-            content: 'POWER OFF';
-        }
-
-        /* The big action text */
-        .action-text {
-            font-size: 1.5rem;
-        }
-
-        /* GLITCH/SCANLINE OVERLAY (Optional, kept very minimal) */
-        .scanline {
-            position: fixed;
+        canvas {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 2px, 3px 100%;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .scanline {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2));
+            background-size: 100% 4px;
+            z-index: 999;
             pointer-events: none;
-            opacity: 0.2;
+            opacity: 0.3;
+        }
+
+        .terminal-window {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 700px;
+            background: var(--glass);
+            border: 1px solid #333;
+            border-radius: 4px;
+            box-shadow: 0 0 40px rgba(61, 220, 132, 0.05);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s ease;
+        }
+
+        .terminal-window:hover {
+            border-color: var(--term-dim);
+        }
+
+        .terminal-header {
+            background: #111;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #333;
+        }
+
+        .dot.red {
+            background: #ff5f56;
+        }
+
+        .dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .dot.green {
+            background: #27c93f;
+        }
+
+        .terminal-content {
+            padding: 30px;
+            min-height: 300px;
+        }
+
+        .command-line {
+            display: flex;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .prompt {
+            color: var(--term-green);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .cursor {
+            width: 8px;
+            height: 18px;
+            background: var(--term-green);
+            animation: blink 1s step-end infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .output {
+            color: var(--text-main);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: var(--term-green);
+            text-shadow: 0 0 5px rgba(61, 220, 132, 0.5);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .grid-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards 1.5s;
+            /* Delayer fade in */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .link-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #333;
+            color: #888;
+            text-decoration: none;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-btn:hover {
+            background: rgba(61, 220, 132, 0.1);
+            border-color: var(--term-green);
+            color: var(--term-green);
+            transform: translateY(-2px);
+        }
+
+        .link-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(61, 220, 132, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .link-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .terminal-window {
+                width: 95%;
+                margin: 10px;
+            }
+
+            .grid-links {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
 </head>
@@ -155,66 +240,151 @@
 <body>
 
     <div class="scanline"></div>
+    <canvas id="networkCanvas"></canvas>
 
-    <div class="container">
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="dots">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div>pranav@system-root:~</div>
+        </div>
+        <div class="terminal-content">
+            <div class="command-line">
+                <span class="prompt">root@pranav00x:~$</span>
+                <span id="typewriter"></span><span class="cursor"></span>
+            </div>
 
-        <!-- DEAD ANDROID SVG -->
-        <svg class="android-bot" viewBox="0 0 24 24">
-            <path
-                d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM12 5c-1.1 0-2 .9-2 2h4c0-1.1-.9-2-2-2z" />
-            <path d="M6 6h12v1H6z" opacity=".3" /> <!-- Open chest look -->
-        </svg>
+            <div id="bio-output" style="display: none;">
+                <div class="output">
+                    > INITIATING SEQUENCE... <br>
+                    > LOADED MODULES: [ANDROID] [WEB3] [PRIVACY_TOOLS] <br>
+                    > STATUS: <span class="highlight">ONLINE & ENCRYPTED</span>
+                </div>
 
-        <div class="fastboot-header">FASTBOOT MODE</div>
+                <h1 class="hero-title">PRANAV<span class="highlight">00X</span></h1>
 
-        <div class="device-info">
-            <div class="info-row">
-                <span class="label">PRODUCT_NAME -</span>
-                <span class="value">PRANAV00X</span>
-            </div>
-            <div class="info-row">
-                <span class="label">VARIANT -</span>
-                <span class="value">AOSP_DEV</span>
-            </div>
-            <div class="info-row">
-                <span class="label">BOOTLOADER -</span>
-                <span class="value" style="color: #d32f2f">UNLOCKED</span>
-            </div>
-            <div class="info-row">
-                <span class="label">BASEBAND -</span>
-                <span class="value">PRIVACY_V1.0</span>
-            </div>
-            <div class="info-row">
-                <span class="label">SECURE_BOOT -</span>
-                <span class="value">DISABLED</span>
-            </div>
-            <div class="info-row">
-                <span class="label">DEVICE_STATE -</span>
-                <span class="value" style="color: #00ff00">ROOTED</span>
+                <p class="output" style="max-width: 500px">
+                    Architecting decentralized systems and stripping mobile OS to the bare metal.
+                    Obsessed with <span class="highlight">Privacy</span>, <span class="highlight">Security</span>, and
+                    <span class="highlight">Performance</span>.
+                </p>
+
+                <div class="grid-links">
+                    <a href="https://github.com/Pranav00x" target="_blank" class="link-btn">GITHUB</a>
+                    <a href="https://x.com/pranav0x" target="_blank" class="link-btn">X / TWITTER</a>
+                    <a href="https://t.me/pranav0x" target="_blank" class="link-btn">TELEGRAM</a>
+                    <a href="mailto:connect@pranav0x.in" class="link-btn">CONTACT</a>
+                </div>
             </div>
         </div>
-
-        <div class="menu">
-            <div class="menu-instruction">
-                VOLUME KEY TO SELECT<br>
-                POWER KEY TO CONFIRM
-            </div>
-
-            <a href="https://github.com/Pranav00x" target="_blank" class="menu-item github">
-                <span class="action-text">GITHUB</span>
-            </a>
-
-            <a href="https://x.com/pranav0x" target="_blank" class="menu-item twitter">
-                <span class="action-text">X / TWITTER</span>
-            </a>
-
-            <a href="mailto:connect@pranav0x.in" class="menu-item contact">
-                <span class="action-text">CONTACT</span>
-            </a>
-        </div>
-
     </div>
 
+    <script>
+        // --- Typewriter Effect ---
+        const textToType = "./init_profile.sh";
+        const typeWriterElement = document.getElementById('typewriter');
+        const bioOutput = document.getElementById('bio-output');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                typeWriterElement.innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100); // Typing speed
+            } else {
+                // Determine completion
+                setTimeout(() => {
+                    document.querySelector('.command-line').style.marginBottom = '30px';
+                    bioOutput.style.display = 'block';
+                }, 400);
+            }
+        }
+
+        // Start typing after a short delay
+        setTimeout(typeWriter, 500);
+
+
+        // --- Matrix/Network Canvas Effect ---
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(61, 220, 132, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(window.innerWidth / 10, 100); // Responsive count
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+
+                // Draw connections
+                for (let j = index; j < particles.length; j++) {
+                    const dx = particles[j].x - p.x;
+                    const dy = particles[j].y - p.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(61, 220, 132, ${0.1 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+    </script>
 </body>
 
 </html>
