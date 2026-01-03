@@ -3,7 +3,7 @@
 <h1>PRANAV00X</h1>
 
 <p>
-  <b>PRIVACY ARCHITECT</b> • <b>ANDROID MODDER</b> • <b>WEB3 NATIVE</b>
+  <b>PRIVACY ARCHITECT</b> • <b>AOSP BUILDER</b> • <b>WEB3 NATIVE</b>
 </p>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=000000&height=100&section=header&text=&fontSize=70&fontColor=ffffff&fontAlignY=35&animation=fadeIn&fontAlign=50" alt="Header" />
