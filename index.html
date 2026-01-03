@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRANAV00X</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap');
 
         :root {
-            --bg: #080808;
-            --fg: #e6e6e6;
+            --bg: #0a0a0a;
+            --fg: #f0f0f0;
+            --dim: #555;
             --accent: #3DDC84;
-            --border: #333;
+            --border-color: #333;
         }
 
         * {
@@ -24,190 +25,156 @@
         body {
             background-color: var(--bg);
             color: var(--fg);
-            font-family: 'Space Grotesk', sans-serif;
-            line-height: 1.2;
-            height: 100vh;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            /* Prevent scrolling for sleek feel */
-        }
-
-        /* --- GRID LAYOUT --- */
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            /* Main content | Sidebar */
-            grid-template-rows: 1fr auto;
-            /* Content | Footer */
-            height: 100%;
-            border: 1px solid var(--border);
-            margin: 20px;
-        }
-
-        /* --- SECTIONS --- */
-        .main-stage {
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            position: relative;
-        }
-
-        .sidebar {
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sidebar-item {
-            flex: 1;
-            border-bottom: 1px solid var(--border);
-            display: flex;
             align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background 0.2s, color 0.2s;
-            text-decoration: none;
-            color: var(--fg);
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        .sidebar-item:last-child {
-            border-bottom: none;
+        .interface {
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--border-color);
+            background: #000;
         }
 
-        .sidebar-item:hover {
+        /* HEADER */
+        .header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
             background: var(--accent);
-            color: var(--bg);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 5px var(--accent);
         }
 
-        .logo-area {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: #666;
+        /* SECTIONS */
+        .section {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        h1 {
-            font-size: 8vw;
-            font-weight: 700;
+        .section-label {
+            color: var(--dim);
+            font-size: 10px;
             text-transform: uppercase;
-            line-height: 0.9;
-            margin-bottom: 20px;
-            letter-spacing: -3px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
         }
 
-        h1 span {
-            color: var(--border);
-            /* Dimmed effect */
-            -webkit-text-stroke: 1px var(--fg);
+        /* BIO */
+        .bio-text {
+            line-height: 1.6;
+            color: #ccc;
         }
 
-        .subtitle {
-            font-size: 1.5rem;
-            max-width: 600px;
-            font-weight: 300;
-            color: #888;
-        }
-
-        .accent-text {
+        .keyword {
             color: var(--accent);
         }
 
-        .footer {
-            grid-column: 1 / -1;
-            padding: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+        /* LINKS LIST */
+        .link-row {
             display: flex;
             justify-content: space-between;
-            color: #555;
-            text-transform: uppercase;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px dashed var(--border-color);
+            text-decoration: none;
+            color: var(--fg);
+            transition: background 0.2s;
         }
 
-        /* --- MOBILE ADJUSTMENTS --- */
-        @media (max-width: 900px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr auto;
-                margin: 0;
-                border: none;
-            }
+        .link-row:last-child {
+            border-bottom: none;
+        }
 
-            .main-stage {
-                border-right: none;
-                padding: 40px 20px;
-                min-height: 50vh;
-            }
+        .link-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
 
-            h1 {
-                font-size: 15vw;
-            }
+        .link-arrow {
+            color: var(--dim);
+        }
 
-            .sidebar {
-                flex-direction: row;
-                flex-wrap: wrap;
-                border-bottom: 1px solid var(--border);
-            }
+        .link-row:hover .link-arrow {
+            color: var(--accent);
+        }
 
-            .sidebar-item {
-                border-right: 1px solid var(--border);
-                border-bottom: none;
-                padding: 20px;
-            }
+        /* FOOTER */
+        .footer {
+            padding: 15px 20px;
+            font-size: 10px;
+            color: var(--dim);
+            display: flex;
+            justify-content: space-between;
+            background: #050505;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="grid-container">
-
-        <!-- MAIN CONTENT AREA -->
-        <div class="main-stage">
-            <div class="logo-area">ID: PRANAV00X // v2.0</div>
-
-            <h1>
-                System<br>
-                <span class="accent-text">Architect</span>
-            </h1>
-
-            <div class="subtitle">
-                Designing trustless infrastructure and optimized mobile environments.
-                <span class="accent-text">Privacy is not optional.</span>
+    <div class="interface">
+        <div class="header">
+            <div>
+                <strong>PRANAV00X</strong>
+                <div style="font-size: 10px; color: var(--dim); margin-top: 5px;">SYSTEM_ID: UID_0</div>
+            </div>
+            <div style="font-size: 10px;">
+                <span class="status-dot"></span>ONLINE
             </div>
         </div>
 
-        <!-- RIGHT SIDE NAVIGATION -->
-        <div class="sidebar">
-            <a href="https://github.com/Pranav00x" target="_blank" class="sidebar-item">
-                Github ->
+        <div class="section">
+            <div class="section-label">Manifesto</div>
+            <div class="bio-text">
+                Developing <span class="keyword">privacy-focused</span> mobile environments and <span
+                    class="keyword">decentralized</span> infrastructure.
+                <br><br>
+                Core objectives include AOSP kernel optimization, telemetry removal, and smart contract deployment.
+            </div>
+        </div>
+
+        <div class="section" style="padding: 0;">
+            <div class="section-label" style="padding: 20px 20px 0 20px;">Uplinks</div>
+
+            <a href="https://github.com/Pranav00x" target="_blank" class="link-row">
+                <span>GITHUB_REPO</span>
+                <span class="link-arrow">-></span>
             </a>
-            <a href="https://x.com/pranav0x" target="_blank" class="sidebar-item">
-                Twitter ->
+
+            <a href="https://x.com/pranav0x" target="_blank" class="link-row">
+                <span>X_FEED</span>
+                <span class="link-arrow">-></span>
             </a>
-            <a href="https://t.me/pranav0x" target="_blank" class="sidebar-item">
-                Telegram ->
+
+            <a href="https://t.me/pranav0x" target="_blank" class="link-row">
+                <span>SECURE_MSG</span>
+                <span class="link-arrow">-></span>
             </a>
-            <a href="mailto:connect@pranav0x.in" class="sidebar-item">
-                Email ->
+
+            <a href="mailto:connect@pranav0x.in" class="link-row">
+                <span>MAIL_RELAY</span>
+                <span class="link-arrow">-></span>
             </a>
         </div>
 
-        <!-- FOOTER INFO -->
         <div class="footer">
-            <span>Specialization: AOSP / DEFI / SECURITY</span>
-            <span>Loc: Global</span>
-            <span>Status: Online</span>
+            <span>KEY: 0x3D...84</span>
+            <span>LOC: GLOBAL</span>
         </div>
-
     </div>
 
 </body>
