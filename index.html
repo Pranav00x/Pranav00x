@@ -4,219 +4,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRANAV00X</title>
+    <title>FASTBOOT MODE</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
         :root {
             --bg: #000;
-            --txt: #fff;
-            --accent: #3DDC84;
-            --glitch-1: #ff00ff;
-            --glitch-2: #00ffff;
+            --text: #fff;
+            --highlight: #00ff00;
+            /* Green usually, sometimes blue/red depending on device */
+            --header: #d32f2f;
+            /* The iconic red FASTBOOT text */
+            --dim: #888;
         }
 
         body {
-            background: var(--bg);
-            color: var(--txt);
-            font-family: 'Space Mono', monospace;
-            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Roboto Mono', monospace;
             height: 100vh;
-            overflow: hidden;
+            margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-transform: uppercase;
+            overflow: hidden;
         }
 
         .container {
-            position: relative;
-            z-index: 10;
-            text-align: left;
+            width: 100%;
+            max-width: 400px;
+            /* Phone width approx */
             padding: 20px;
         }
 
-        /* GLITCH TEXT EFFECT */
-        .glitch {
-            font-family: 'Syncopate', sans-serif;
+        /* THE ROBOT */
+        .android-bot {
+            width: 100px;
+            margin: 0 auto 40px auto;
+            display: block;
+            fill: #3DDC84;
+            opacity: 0.8;
+        }
+
+        /* HEADER TEXT */
+        .fastboot-header {
+            color: var(--header);
             font-weight: 700;
-            font-size: 6rem;
-            line-height: 0.9;
-            text-transform: uppercase;
-            position: relative;
-            color: var(--txt);
+            font-size: 2rem;
             margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
         }
 
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .glitch::before {
-            left: 2px;
-            text-shadow: -1px 0 var(--glitch-1);
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
-        }
-
-        .glitch::after {
-            left: -2px;
-            text-shadow: 1px 0 var(--glitch-2);
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-anim-1 {
-            0% {
-                clip-path: inset(20% 0 80% 0);
-            }
-
-            20% {
-                clip-path: inset(60% 0 10% 0);
-            }
-
-            40% {
-                clip-path: inset(40% 0 50% 0);
-            }
-
-            60% {
-                clip-path: inset(80% 0 5% 0);
-            }
-
-            80% {
-                clip-path: inset(10% 0 60% 0);
-            }
-
-            100% {
-                clip-path: inset(30% 0 30% 0);
-            }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% {
-                clip-path: inset(10% 0 60% 0);
-            }
-
-            20% {
-                clip-path: inset(30% 0 10% 0);
-            }
-
-            40% {
-                clip-path: inset(70% 0 20% 0);
-            }
-
-            60% {
-                clip-path: inset(10% 0 80% 0);
-            }
-
-            80% {
-                clip-path: inset(50% 0 30% 0);
-            }
-
-            100% {
-                clip-path: inset(0% 0 70% 0);
-            }
-        }
-
-        .role {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            color: var(--accent);
+        /* DEVICE INFO BLOCK */
+        .device-info {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text);
             margin-bottom: 40px;
-            display: inline-block;
-            background: rgba(61, 220, 132, 0.1);
-            padding: 5px 10px;
         }
 
-        .nav-links {
+        .info-row {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .nav-item {
-            font-size: 1.5rem;
+        .label {
+            color: var(--text);
+        }
+
+        .value {
+            color: var(--dim);
+        }
+
+        /* MENU SELECTION */
+        .menu {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+
+        .menu-instruction {
+            color: var(--highlight);
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .menu-item {
+            display: block;
+            color: var(--dim);
             text-decoration: none;
-            color: #666;
-            transition: all 0.3s;
-            cursor: pointer;
-            width: fit-content;
+            padding: 12px 15px;
+            border: 1px solid #333;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.2s;
         }
 
-        .nav-item:hover {
-            color: var(--txt);
-            padding-left: 20px;
+        .menu-item:hover {
+            border-color: var(--highlight);
+            color: var(--highlight);
+            background: rgba(0, 255, 0, 0.05);
+            /* Simulate 'Selected' state */
         }
 
-        .nav-item::before {
-            content: '>';
-            opacity: 0;
-            margin-right: 10px;
-            color: var(--accent);
-            transition: 0.3s;
+        .menu-item::before {
+            content: 'START';
+            font-size: 0.7rem;
+            display: block;
+            color: #555;
+            font-weight: 400;
+            margin-bottom: 2px;
         }
 
-        .nav-item:hover::before {
-            opacity: 1;
+        /* Customize labels for specific links */
+        .menu-item.github::before {
+            content: 'BOOT TO RECOVERY';
         }
 
-        /* BACKGROUND NOISE */
-        .noise {
+        .menu-item.twitter::before {
+            content: 'REBOOT SYSTEM';
+        }
+
+        .menu-item.contact::before {
+            content: 'POWER OFF';
+        }
+
+        /* The big action text */
+        .action-text {
+            font-size: 1.5rem;
+        }
+
+        /* GLITCH/SCANLINE OVERLAY (Optional, kept very minimal) */
+        .scanline {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAA5OTkAAABMTExERERmZmYzMzMyMjJ4D30QAAAACHRSTlMAMwAys3MZM7QkUkYAAABASURBVDjLY2AYBaNgFCAAFQYwZQECHiDmAmIeIOYCYlEgFmUgFmMgFmMgFmMgFmMgFmMgFmMgFmMgFmMw4D8KAwYA+EEZ+XlE6RcAAAAASUVORK5CYII=');
-            opacity: 0.05;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
             pointer-events: none;
-            z-index: 1;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, #000 90%);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 600px) {
-            .glitch {
-                font-size: 3rem;
-            }
+            opacity: 0.2;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="noise"></div>
-    <div class="overlay"></div>
+    <div class="scanline"></div>
 
     <div class="container">
-        <div class="glitch" data-text="SYSTEM">SYSTEM</div>
-        <div class="glitch" data-text="ROOT">ROOT</div>
 
-        <div class="role">
-            // PRANAV00X_ARCHITECT
+        <!-- DEAD ANDROID SVG -->
+        <svg class="android-bot" viewBox="0 0 24 24">
+            <path
+                d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM12 5c-1.1 0-2 .9-2 2h4c0-1.1-.9-2-2-2z" />
+            <path d="M6 6h12v1H6z" opacity=".3" /> <!-- Open chest look -->
+        </svg>
+
+        <div class="fastboot-header">FASTBOOT MODE</div>
+
+        <div class="device-info">
+            <div class="info-row">
+                <span class="label">PRODUCT_NAME -</span>
+                <span class="value">PRANAV00X</span>
+            </div>
+            <div class="info-row">
+                <span class="label">VARIANT -</span>
+                <span class="value">AOSP_DEV</span>
+            </div>
+            <div class="info-row">
+                <span class="label">BOOTLOADER -</span>
+                <span class="value" style="color: #d32f2f">UNLOCKED</span>
+            </div>
+            <div class="info-row">
+                <span class="label">BASEBAND -</span>
+                <span class="value">PRIVACY_V1.0</span>
+            </div>
+            <div class="info-row">
+                <span class="label">SECURE_BOOT -</span>
+                <span class="value">DISABLED</span>
+            </div>
+            <div class="info-row">
+                <span class="label">DEVICE_STATE -</span>
+                <span class="value" style="color: #00ff00">ROOTED</span>
+            </div>
         </div>
 
-        <nav class="nav-links">
-            <a href="https://github.com/Pranav00x" target="_blank" class="nav-item">GITHUB_REPO</a>
-            <a href="https://x.com/pranav0x" target="_blank" class="nav-item">X_NETWORK</a>
-            <a href="https://t.me/pranav0x" target="_blank" class="nav-item">ENCRYPTED_MSG</a>
-            <a href="mailto:connect@pranav0x.in" class="nav-item">MAIL_DROP</a>
-        </nav>
+        <div class="menu">
+            <div class="menu-instruction">
+                VOLUME KEY TO SELECT<br>
+                POWER KEY TO CONFIRM
+            </div>
+
+            <a href="https://github.com/Pranav00x" target="_blank" class="menu-item github">
+                <span class="action-text">GITHUB</span>
+            </a>
+
+            <a href="https://x.com/pranav0x" target="_blank" class="menu-item twitter">
+                <span class="action-text">X / TWITTER</span>
+            </a>
+
+            <a href="mailto:connect@pranav0x.in" class="menu-item contact">
+                <span class="action-text">CONTACT</span>
+            </a>
+        </div>
+
     </div>
 
 </body>
