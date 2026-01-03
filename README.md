@@ -60,17 +60,13 @@
 
 <br>
 <div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Pranav00x&theme=gitdimmed&no-frame=true&no-bg=true&margin-w=4" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Pranav00x&theme=react-dark&bg_color=0d1117&hide_border=true&color=ffffff&line=3DDC84&point=ffffff" width="100%" />
 </div>
 <br>
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pranav00x&layout=compact&hide_border=true&bg_color=0d1117&title_color=3DDC84&text_color=ffffff&icon_color=3DDC84" width="48%" />
-<img src="https://streak-stats.demolab.com?user=Pranav00x&mode=weekly&hide_border=true&background=0d1117&ring=3DDC84&fire=3DDC84&currStreakLabel=3DDC84&sideNums=ffffff&sideLabels=ffffff" width="48%" />
-
-<br><br>
-
 <div align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Pranav00x&theme=react-dark&bg_color=0d1117&hide_border=true&color=ffffff&line=3DDC84&point=ffffff" width="100%" />
+  <img src="https://github-readme-stats.vercel.app/api?username=Pranav00x&show_icons=true&hide_border=true&bg_color=0d1117&title_color=3DDC84&text_color=ffffff&icon_color=3DDC84&include_all_commits=true" width="48%" />
+  <img src="https://streak-stats.demolab.com?user=Pranav00x&mode=weekly&hide_border=true&background=0d1117&ring=3DDC84&fire=3DDC84&currStreakLabel=3DDC84&sideNums=ffffff&sideLabels=ffffff" width="48%" />
 </div>
 
 </div>
