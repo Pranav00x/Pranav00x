@@ -6,222 +6,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRANAV00X</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
         :root {
-            --bg: #0d0d0d;
-            --card-bg: #141414;
-            --card-hover: #1a1a1a;
-            --text-main: #ffffff;
-            --text-dim: #888;
+            --bg: #000;
+            --txt: #fff;
             --accent: #3DDC84;
-            --border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --glitch-1: #ff00ff;
+            --glitch-2: #00ffff;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-family: 'Manrope', sans-serif;
-            min-height: 100vh;
+            background: var(--bg);
+            color: var(--txt);
+            font-family: 'Space Mono', monospace;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: left;
             padding: 20px;
         }
 
-        /* GRID CONTAINER */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 15px;
-            width: 100%;
-            max-width: 900px;
-            aspect-ratio: 16/9;
-            /* Maintain general shape */
-        }
-
-        /* CARD BASE */
-        .card {
-            background: var(--card-bg);
-            border: var(--border);
-            border-radius: 20px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.3s ease;
+        /* GLITCH TEXT EFFECT */
+        .glitch {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 6rem;
+            line-height: 0.9;
+            text-transform: uppercase;
             position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
+            color: var(--txt);
+            margin-bottom: 20px;
         }
 
-        .card:hover {
-            background: var(--card-hover);
-            transform: translateY(-2px);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* --- SPECIFIC CARDS --- */
-
-        /* PROFILE (Large, Top Left) */
-        .card-profile {
-            grid-column: span 2;
-            grid-row: span 2;
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #333;
-            object-fit: cover;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(61, 220, 132, 0.1);
-            color: var(--accent);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            width: fit-content;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent);
-        }
-
-        /* DESCRIPTION (Tall, Right) */
-        .card-bio {
-            grid-column: span 2;
-            grid-row: span 1;
-            justify-content: center;
-        }
-
-        /* SOCIALS (Small squares) */
-        .card-social {
-            grid-column: span 1;
-            grid-row: span 1;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .social-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        /* STACK (Wide, Bottom) */
-        .card-stack {
-            grid-column: span 2;
-            grid-row: span 2;
-        }
-
-        .stack-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .stack-tag {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-        }
-
-        /* LOCATION (Map) */
-        .card-map {
-            grid-column: span 1;
-            grid-row: span 1;
-            background: #1a1a1a;
-            position: relative;
-        }
-
-        .map-bg {
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.3;
-            background-image: radial-gradient(#444 1px, transparent 1px);
-            background-size: 10px 10px;
         }
 
-        /* TEXT STYLES */
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 var(--glitch-1);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
         }
 
-        h2 {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+        .glitch::after {
+            left: -2px;
+            text-shadow: 1px 0 var(--glitch-2);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
         }
 
-        p {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .arrow-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.2rem;
-            opacity: 0.5;
-            transition: transform 0.3s;
-        }
-
-        .card:hover .arrow-icon {
-            transform: translate(5px, -5px);
-            opacity: 1;
-            color: var(--text-main);
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                aspect-ratio: auto;
-                display: flex;
-                flex-direction: column;
+        @keyframes glitch-anim-1 {
+            0% {
+                clip-path: inset(20% 0 80% 0);
             }
 
-            body {
-                padding: 15px;
+            20% {
+                clip-path: inset(60% 0 10% 0);
+            }
+
+            40% {
+                clip-path: inset(40% 0 50% 0);
+            }
+
+            60% {
+                clip-path: inset(80% 0 5% 0);
+            }
+
+            80% {
+                clip-path: inset(10% 0 60% 0);
+            }
+
+            100% {
+                clip-path: inset(30% 0 30% 0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip-path: inset(10% 0 60% 0);
+            }
+
+            20% {
+                clip-path: inset(30% 0 10% 0);
+            }
+
+            40% {
+                clip-path: inset(70% 0 20% 0);
+            }
+
+            60% {
+                clip-path: inset(10% 0 80% 0);
+            }
+
+            80% {
+                clip-path: inset(50% 0 30% 0);
+            }
+
+            100% {
+                clip-path: inset(0% 0 70% 0);
+            }
+        }
+
+        .role {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 40px;
+            display: inline-block;
+            background: rgba(61, 220, 132, 0.1);
+            padding: 5px 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-item {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .nav-item:hover {
+            color: var(--txt);
+            padding-left: 20px;
+        }
+
+        .nav-item::before {
+            content: '>';
+            opacity: 0;
+            margin-right: 10px;
+            color: var(--accent);
+            transition: 0.3s;
+        }
+
+        .nav-item:hover::before {
+            opacity: 1;
+        }
+
+        /* BACKGROUND NOISE */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAA5OTkAAABMTExERERmZmYzMzMyMjJ4D30QAAAACHRSTlMAMwAys3MZM7QkUkYAAABASURBVDjLY2AYBaNgFCAAFQYwZQECHiDmAmIeIOYCYlEgFmUgFmMgFmMgFmMgFmMgFmMgFmMgFmMgFmMw4D8KAwYA+EEZ+XlE6RcAAAAASUVORK5CYII=');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, #000 90%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .glitch {
+                font-size: 3rem;
             }
         }
     </style>
@@ -229,81 +200,23 @@
 
 <body>
 
-    <div class="bento-grid">
+    <div class="noise"></div>
+    <div class="overlay"></div>
 
-        <!-- 1. PROFILE -->
-        <div class="card card-profile">
-            <div class="profile-header">
-                <img src="https://github.com/Pranav00x.png" alt="Profile" class="avatar">
-                <div>
-                    <h1>Pranav</h1>
-                    <div style="color: #666; font-size: 0.9rem;">@Pranav0x</div>
-                </div>
-            </div>
+    <div class="container">
+        <div class="glitch" data-text="SYSTEM">SYSTEM</div>
+        <div class="glitch" data-text="ROOT">ROOT</div>
 
-            <p>
-                <b>System Architect & Privacy Advocate.</b><br>
-                Specializing in building trustless infrastructure and stripped-down Android environments.
-            </p>
-
-            <div class="status-badge" style="margin-top: 20px;">
-                <span class="status-dot"></span> Available for work
-            </div>
+        <div class="role">
+            // PRANAV00X_ARCHITECT
         </div>
 
-        <!-- 2. GITHUB -->
-        <a href="https://github.com/Pranav00x" target="_blank" class="card card-social">
-            <div class="arrow-icon">↗</div>
-            <div class="social-icon">⌘</div> <!-- Command icon as abstract representation or use SVG -->
-            <h2>GitHub</h2>
-        </a>
-
-        <!-- 3. TWITTER -->
-        <a href="https://x.com/pranav0x" target="_blank" class="card card-social">
-            <div class="arrow-icon">↗</div>
-            <div class="social-icon">✕</div>
-            <h2>Twitter</h2>
-        </a>
-
-        <!-- 4. TECH STACK -->
-        <div class="card card-stack">
-            <h2>Core Stack</h2>
-            <div class="stack-list">
-                <span class="stack-tag">Kotlin</span>
-                <span class="stack-tag">Android SDK</span>
-                <span class="stack-tag">AOSP</span>
-                <span class="stack-tag">Solidity</span>
-                <span class="stack-tag">Rust</span>
-                <span class="stack-tag">Next.js</span>
-                <span class="stack-tag">Linux Kernel</span>
-                <span class="stack-tag">Bash</span>
-            </div>
-        </div>
-
-        <!-- 5. TELEGRAM -->
-        <a href="https://t.me/pranav0x" target="_blank" class="card card-social">
-            <div class="arrow-icon">↗</div>
-            <div class="social-icon">✈</div>
-            <h2>Telegram</h2>
-        </a>
-
-        <!-- 6. MAIL -->
-        <a href="mailto:connect@pranav0x.in" class="card card-social">
-            <div class="arrow-icon">↗</div>
-            <div class="social-icon">@</div>
-            <h2>Mail</h2>
-        </a>
-
-        <!-- 7. LOCATION -->
-        <div class="card card-map">
-            <div class="map-bg"></div>
-            <div style="position: relative; z-index: 2;">
-                <h2>Base</h2>
-                <div style="font-size: 1.2rem; font-weight: 700;">Global</div>
-                <div style="color: #666; font-size: 0.8rem;">Remote / Async</div>
-            </div>
-        </div>
-
+        <nav class="nav-links">
+            <a href="https://github.com/Pranav00x" target="_blank" class="nav-item">GITHUB_REPO</a>
+            <a href="https://x.com/pranav0x" target="_blank" class="nav-item">X_NETWORK</a>
+            <a href="https://t.me/pranav0x" target="_blank" class="nav-item">ENCRYPTED_MSG</a>
+            <a href="mailto:connect@pranav0x.in" class="nav-item">MAIL_DROP</a>
+        </nav>
     </div>
 
 </body>
