@@ -1,361 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pranav | Web3 Engineer</title>
-    
+    <title>PRANAV // SYSTEMS</title>
+
     <!-- SEO -->
-    <meta name="description" content="Pranav0x - Web3 Engineer and Builder. Specializing in on-chain operations and systems.">
-    <meta name="keywords" content="Pranav, Web3, Engineer, Onchain, Blockchain, Developer">
-    
+    <meta name="description" content="Pranav - Web3 Engineer. High-performance systems and on-chain intelligence.">
+    <meta name="keywords" content="Web3, Engineer, Rust, Ethereum, Blockchain, Systems">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600;800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
-            --bg: #0a0a0a;
-            --surface: #141414;
-            --border: #262626;
+            --bg: #000000;
+            --surface: #0a0a0a;
+            --surface-hover: #111111;
+            --border: #1a1a1a;
+            --border-bright: #2a2a2a;
             --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
+            --text-secondary: #71717a;
+            --text-tertiary: #3f3f46;
             --accent: #ffffff;
             --font-main: 'Outfit', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+            --card-radius: 12px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none;
+            /* Custom cursor for premium feel */
         }
 
         body {
             background-color: var(--bg);
             color: var(--text-primary);
             font-family: var(--font-main);
-            line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            letter-spacing: -0.01em;
         }
 
-        /* Smoothing and Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
+        /* Custom Cursor */
+        #cursor {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
         }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 10px;
+
+        #cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.15s ease-out;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 2rem;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
         }
 
-        /* Layout Grid */
-        .bento-grid {
+        /* Header / Nav */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4rem;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.05em;
+        }
+
+        .time-box {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Hero */
+        .hero-section {
+            margin-bottom: 6rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 800;
+            line-height: 0.9;
+            letter-spacing: -0.06em;
+            margin-left: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero-sub {
+            display: flex;
+            gap: 4rem;
+            margin-top: 2rem;
+            align-items: flex-start;
+        }
+
+        .hero-bio {
+            max-width: 500px;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .hero-bio span {
+            color: var(--text-primary);
+        }
+
+        /* Bento Grid */
+        .grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            border-color: #404040;
-            transform: translateY(-4px);
-        }
-
-        /* Sections */
-        .hero {
-            grid-column: span 8;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .profile-pic-container {
-            grid-column: span 4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .profile-pic {
-            width: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 20px;
-            filter: grayscale(100%);
-            transition: filter 0.5s ease;
-        }
-
-        .profile-pic:hover {
-            filter: grayscale(0%);
-        }
-
-        .identity {
-            margin-top: 1rem;
-        }
-
-        .identity h1 {
-            font-size: 4.5rem;
-            font-weight: 600;
-            letter-spacing: -0.05em;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .identity p {
-            font-family: var(--font-mono);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .bio {
-            grid-column: span 7;
-            font-size: 1.2rem;
-            font-weight: 300;
-            color: var(--text-secondary);
-        }
-
-        .bio span {
-            color: var(--text-primary);
-            font-weight: 400;
-        }
-
-        .tags-container {
-            grid-column: span 5;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            align-content: center;
-        }
-
-        .tag {
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-family: var(--font-mono);
-            color: var(--text-secondary);
-            transition: all 0.2s ease;
-        }
-
-        .tag:hover {
-            background: var(--text-primary);
-            color: var(--bg);
-            border-color: var(--text-primary);
-        }
-
-        .socials {
-            grid-column: span 12;
-            display: flex;
+            grid-auto-rows: minmax(160px, auto);
             gap: 1rem;
         }
 
-        .social-link {
-            flex: 1;
+        .item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .item:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-bright);
+            transform: translateY(-2px);
+        }
+
+        .item-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .item-content {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .item-content.mono {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Specific Sizes */
+        .w-6 {
+            grid-column: span 6;
+        }
+
+        .w-4 {
+            grid-column: span 4;
+        }
+
+        .w-8 {
+            grid-column: span 8;
+        }
+
+        .w-3 {
+            grid-column: span 3;
+        }
+
+        .w-9 {
+            grid-column: span 9;
+        }
+
+        .w-12 {
+            grid-column: span 12;
+        }
+
+        .h-2 {
+            grid-row: span 2;
+        }
+
+        /* Socials */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            grid-column: span 12;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            height: 100px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius);
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 80px;
             text-decoration: none;
             color: var(--text-secondary);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
-        .social-link i {
-            width: 24px;
-            height: 24px;
-        }
-
-        .social-link:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--text-primary);
+        .social-btn:hover {
             color: var(--text-primary);
+            border-color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        .status-bar {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            right: 2rem;
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding: 4rem 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
+            border-top: 1px solid var(--border);
             font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Utilities */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 255, 128, 0.1);
+            color: #00ff80;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-family: var(--font-mono);
         }
 
         .status-dot {
             width: 6px;
             height: 6px;
-            background: #10B981;
+            background: currentColor;
             border-radius: 50%;
-            display: inline-block;
             margin-right: 8px;
-            box-shadow: 0 0 10px #10B981;
+            box-shadow: 0 0 8px currentColor;
         }
 
-        .footer {
-            margin-top: 4rem;
-            text-align: center;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: #333;
-            letter-spacing: 0.1em;
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: white;
+            z-index: 10000;
+            width: 0%;
         }
 
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .hero, .profile-pic-container, .bio, .tags-container {
+        @media (max-width: 900px) {
+
+            .w-6,
+            .w-4,
+            .w-8,
+            .w-3,
+            .w-9 {
                 grid-column: span 12;
             }
-            .identity h1 {
-                font-size: 3rem;
+
+            .hero-sub {
+                flex-direction: column;
+                gap: 1rem;
             }
-            .socials {
-                flex-wrap: wrap;
+
+            .social-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
-            .social-link {
-                flex: none;
-                width: calc(33.33% - 0.7rem);
-            }
-            .status-bar {
-                top: 1rem;
-                left: 1rem;
-                right: 1rem;
+
+            .hero-title {
+                font-size: 4rem;
             }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="status-bar">
-        <div><span class="status-dot"></span>SYSTEM: ONLINE</div>
-        <div>PV.OS_V2.0.1</div>
-    </div>
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+    <div class="scroll-progress" id="progress"></div>
 
-    <main class="container">
-        <div class="bento-grid">
-            
-            <!-- Hero Section -->
-            <section class="card hero">
-                <div class="identity">
-                    <p>Web3 Systems Engineer</p>
-                    <h1>Pranav</h1>
+    <div class="container">
+        <header>
+            <div class="logo">PRANAV // 0X</div>
+            <div class="status-pill">
+                <div class="status-dot"></div> ACTIVE_NODE
+            </div>
+            <div class="time-box" id="clock">00:00:00 UTC</div>
+        </header>
+
+        <main>
+            <section class="hero-section">
+                <h1 class="hero-title">ENGINEER<br>SYSTEMS.</h1>
+                <div class="hero-sub">
+                    <p class="hero-bio">
+                        Full-stack architect specializing in <span>Web3 Infrastructure</span>, high-performance
+                        <span>on-chain intelligence</span>, and unlisted operations.
+                    </p>
+                    <div class="item-label" style="margin-top: 0.5rem;">BASED IN IND // DEPLOYED GLOBALLY</div>
                 </div>
             </section>
 
-            <!-- Profile Pic -->
-            <section class="card profile-pic-container">
-                <img src="img/20250804_221658.jpg" alt="Pranav" class="profile-pic">
-            </section>
+            <div class="grid">
+                <!-- Stack -->
+                <div class="item w-8">
+                    <span class="item-label">Core Stack</span>
+                    <div class="item-content">Rust, Solidity, TypeScript, React, PostgreSQL</div>
+                </div>
 
-            <!-- Bio -->
-            <section class="card bio">
-                Love being lazy. Building at <span>neurix.syn</span>. Specializing in <span>unlisted ops</span> and high-performance on-chain systems.
-            </section>
+                <!-- Expertise -->
+                <div class="item w-4">
+                    <span class="item-label">Availability</span>
+                    <div class="item-content">Laziness Optimized. Efficiency Driven.</div>
+                </div>
 
-            <!-- Tags -->
-            <section class="card tags-container">
-                <div class="tag">AWAKE</div>
-                <div class="tag">ONCHAIN</div>
-                <div class="tag">ROOTED</div>
-                <div class="tag">ETHEREUM</div>
-                <div class="tag">RUST</div>
-                <div class="tag">SOLANA</div>
-            </section>
+                <!-- Projects / Ops -->
+                <div class="item w-6 h-2">
+                    <span class="item-label">Recent Operations</span>
+                    <div class="item-content" style="font-size: 1.1rem; line-height: 1.8;">
+                        • neurix.syn // core builder<br>
+                        • unlisted.ops // architect<br>
+                        • liquid.stax // protocol dev<br>
+                        • neural.net // research
+                    </div>
+                </div>
 
-            <!-- Socials -->
-            <div class="socials">
-                <a href="https://github.com/Yours-Pranav" target="_blank" class="social-link" title="GitHub">
-                    <i data-lucide="github"></i>
-                </a>
-                <a href="https://x.com/Pranav0x" target="_blank" class="social-link" title="X">
-                    <i data-lucide="twitter"></i>
-                </a>
-                <a href="https://instagram.com/Pra_nav.19" target="_blank" class="social-link" title="Instagram">
-                    <i data-lucide="instagram"></i>
-                </a>
-                <a href="https://t.me/Pranav0x" target="_blank" class="social-link" title="Telegram">
-                    <i data-lucide="send"></i>
-                </a>
-                <a href="mailto:connect@pranav0x.xyz" class="social-link" title="Email">
-                    <i data-lucide="mail"></i>
-                </a>
+                <!-- Quote / Vibe -->
+                <div class="item w-6">
+                    <span class="item-label">Philosophy</span>
+                    <div class="item-content" style="font-style: italic; font-weight: 300;">"Simplicity is the soul of
+                        efficiency."</div>
+                </div>
+
+                <!-- Stats -->
+                <div class="item w-3">
+                    <span class="item-label">Uptime</span>
+                    <div class="item-content mono">99.98%</div>
+                </div>
+                <div class="item w-3">
+                    <span class="item-label">Latency</span>
+                    <div class="item-content mono">&lt; 12ms</div>
+                </div>
+
+                <!-- Socials Section -->
+                <div class="social-grid">
+                    <a href="https://github.com/Yours-Pranav" target="_blank" class="social-btn">
+                        <i data-lucide="github"></i>
+                    </a>
+                    <a href="https://x.com/Pranav0x" target="_blank" class="social-btn">
+                        <i data-lucide="twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/Pra_nav.19" target="_blank" class="social-btn">
+                        <i data-lucide="instagram"></i>
+                    </a>
+                    <a href="https://t.me/Pranav0x" target="_blank" class="social-btn">
+                        <i data-lucide="send"></i>
+                    </a>
+                    <a href="mailto:connect@pranav0x.xyz" class="social-btn">
+                        <i data-lucide="mail"></i>
+                    </a>
+                </div>
             </div>
+        </main>
 
-        </div>
-
-        <footer class="footer">
-            &copy; 2026 PRANAV. ALL RIGHTS RESERVED. [BUILD_ALPHA]
+        <footer>
+            <div>© 2026 INTERNAL_REGISTRY</div>
+            <div>VER: 4.0.0_STABLE</div>
+            <div>BUILD: 2026.01.30</div>
         </footer>
-    </main>
+    </div>
 
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Subtle parallax/tilt effect for cards
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const xc = rect.width / 2;
-                const yc = rect.height / 2;
-                
-                const dx = x - xc;
-                const dy = y - yc;
-                
-                card.style.setProperty('--rx', `${dy / -20}deg`);
-                card.style.setProperty('--ry', `${dx / 20}deg`);
-                
-                // Optional: apply transform if you want a subtle tilt
-                // card.style.transform = `perspective(1000px) rotateX(${dy / -40}deg) rotateY(${dx / 40}deg)`;
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+
+            setTimeout(() => {
+                follower.style.left = e.clientX - 16 + 'px';
+                follower.style.top = e.clientY - 16 + 'px';
+            }, 50);
+        });
+
+        // Hover Effect for Cursor
+        const interactables = document.querySelectorAll('.item, .social-btn, a');
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                follower.style.transform = 'scale(1.5)';
+                follower.style.background = 'rgba(255, 255, 255, 0.1)';
             });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            el.addEventListener('mouseleave', () => {
+                follower.style.transform = 'scale(1)';
+                follower.style.background = 'transparent';
             });
+        });
+
+        // Clock Logic
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toISOString().split('T')[1].split('.')[0] + ' UTC';
+            document.getElementById('clock').textContent = timeStr;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress').style.width = scrolled + '%';
         });
     </script>
 </body>
+
 </html>
