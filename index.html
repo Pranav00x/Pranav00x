@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRANAV // FLOWSTABLE</title>
+    <title>PRANAV // SYSTEMS ARCHITECT</title>
 
     <!-- SEO -->
     <meta name="description"
-        content="Pranav - Web3 & AOSP Systems Engineer. Founder of Flowstable. Building at the intersection of privacy, on-chain systems, and custom firmware.">
+        content="Pranav - Privacy & Systems Engineer. Founder of Flowstable. Building AOSP, Custom Firmware, and Web3 Privacy Infrastructure.">
     <meta name="keywords"
-        content="Flowstable, Web3, AOSP, Custom ROM, Privacy, Systems Engineer, Rust, Solidity, Firmware">
+        content="Flowstable, AOSP, Custom ROM, Privacy, Web3, Systems Engineer, Rust, Solidity, C++, Firmware">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,12 +30,13 @@
             --border: #1a1a1a;
             --border-bright: #333333;
             --text-primary: #ffffff;
-            --text-secondary: #888888;
+            --text-secondary: #8d8d8d;
             --text-tertiary: #444444;
-            --accent: #ffffff;
+            --accent: #5e5e5e;
             --font-main: 'Outfit', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --card-radius: 16px;
+            --card-radius: 4px;
+            /* Harder edges for industrial feel */
         }
 
         * {
@@ -43,6 +44,7 @@
             padding: 0;
             box-sizing: border-box;
             cursor: none;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
@@ -50,166 +52,166 @@
             color: var(--text-primary);
             font-family: var(--font-main);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
         }
 
         /* Custom Cursor */
         #cursor {
-            width: 6px;
-            height: 6px;
+            width: 4px;
+            height: 4px;
             background: white;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 10000;
         }
 
         #cursor-follower {
-            width: 34px;
-            height: 34px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.1s ease-out, background 0.3s ease, border 0.3s ease;
+            z-index: 9999;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border 0.3s ease;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* Nav */
-        header {
+        /* Top Navigation */
+        nav {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 0;
-            margin-bottom: 3rem;
+            align-items: flex-start;
+            padding: 1rem 0 3rem 0;
         }
 
-        .brand {
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .brand-id {
             font-family: var(--font-mono);
             font-weight: 800;
-            font-size: 1.1rem;
-            letter-spacing: -0.05em;
+            font-size: 0.9rem;
+            letter-spacing: -0.02em;
         }
 
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.3rem 0.8rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            font-size: 0.7rem;
+        .nav-status {
             font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .time-display {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
             color: var(--text-secondary);
         }
 
-        .status-dot {
-            width: 5px;
-            height: 5px;
-            background: #ffffff;
-            border-radius: 50%;
-            margin-right: 8px;
-            box-shadow: 0 0 10px #ffffff;
-        }
-
-        /* Hero Layout */
-        .layout-grid {
+        /* Main Grid */
+        .grid-layout {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 1.25rem;
-            margin-bottom: 1.25rem;
+            gap: 1rem;
+            flex-grow: 1;
         }
 
-        .card {
+        .panel {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--card-radius);
-            padding: 2rem;
+            padding: 1.5rem;
             position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
         }
 
-        .card:hover {
+        .panel:hover {
             border-color: var(--border-bright);
-            background: var(--surface-hover);
         }
 
-        /* Hero Main */
-        .hero-main {
-            grid-column: span 8;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            min-height: 400px;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            line-height: 0.85;
-            letter-spacing: -0.07em;
+        .panel-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-tertiary);
             text-transform: uppercase;
-            margin-left: -0.05em;
-        }
-
-        .hero-tagline {
-            margin-top: 1.5rem;
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            max-width: 600px;
-        }
-
-        .hero-tagline span {
-            color: var(--text-primary);
-            font-weight: 400;
-        }
-
-        /* Side Cards */
-        .side-card {
-            grid-column: span 4;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
             display: flex;
-            flex-direction: column;
             justify-content: space-between;
         }
 
-        .label {
+        /* Big Headline */
+        .headline-panel {
+            grid-column: span 8;
+            grid-row: span 2;
+            justify-content: flex-end;
+            min-height: 450px;
+        }
+
+        .headline {
+            font-size: clamp(3rem, 10vw, 8.5rem);
+            font-weight: 800;
+            line-height: 0.8;
+            letter-spacing: -0.07em;
+            text-transform: uppercase;
+            margin-left: -0.06em;
+        }
+
+        /* Systems / Firmware List */
+        .systems-panel {
+            grid-column: span 4;
+            grid-row: span 2;
+        }
+
+        .list-entry {
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .list-entry:last-child {
+            border-bottom: none;
+        }
+
+        .entry-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .entry-meta {
             font-family: var(--font-mono);
             font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15rem;
             color: var(--text-tertiary);
-            margin-bottom: 1rem;
-            display: block;
         }
 
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.04em;
-        }
-
-        /* Bento Pieces */
+        /* Projects Bento */
         .w-6 {
             grid-column: span 6;
         }
 
-        .w-4 {
-            grid-column: span 4;
-        }
-
         .w-3 {
             grid-column: span 3;
+        }
+
+        .w-4 {
+            grid-column: span 4;
         }
 
         .w-5 {
@@ -220,52 +222,77 @@
             grid-column: span 7;
         }
 
-        .list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.95rem;
+        .project-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.5rem;
         }
 
-        .list-item:last-child {
-            border-bottom: none;
-        }
-
-        .list-item span {
+        .project-desc {
+            font-size: 1.1rem;
             color: var(--text-secondary);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-weight: 300;
+            max-width: 90%
         }
 
-        /* Privacy Focus */
-        .privacy-card {
+        .project-desc span {
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        /* Inverted / Privacy Panel */
+        .privacy-panel {
             background: #ffffff;
             color: #000000;
+            grid-column: span 6;
         }
 
-        .privacy-card .label {
-            color: #888;
+        .privacy-panel .panel-label {
+            color: #aaaaaa;
         }
 
-        .privacy-card .item-text {
-            font-weight: 600;
+        .privacy-panel .project-title {
+            color: #000;
         }
 
-        /* Socials */
-        .social-bar {
+        .privacy-panel .project-desc {
+            color: #444;
+        }
+
+        /* Tech Matrix */
+        .tech-matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stack-group h4 {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .stack-items {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
-        .social-link {
-            flex: 1;
-            height: 70px;
-            background: var(--surface);
+        .stack-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
             border: 1px solid var(--border);
-            border-radius: var(--card-radius);
+            color: var(--text-secondary);
+        }
+
+        /* Social Interface */
+        .social-link {
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -276,36 +303,36 @@
 
         .social-link:hover {
             color: var(--text-primary);
-            border-color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         /* Footer */
         footer {
-            margin-top: auto;
-            padding: 4rem 0 2rem;
+            margin-top: 3rem;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--text-tertiary);
             text-transform: uppercase;
-            letter-spacing: 0.1rem;
+            letter-spacing: 0.2em;
         }
 
         @media (max-width: 1000px) {
 
-            .hero-main,
-            .side-card,
+            .headline-panel,
+            .systems-panel,
             .w-6,
-            .w-4,
             .w-3,
+            .w-4,
             .w-5,
             .w-7 {
                 grid-column: span 12;
             }
 
-            .hero-title {
-                font-size: 4rem;
+            .headline {
+                font-size: 4.5rem;
             }
         }
     </style>
@@ -317,97 +344,109 @@
     <div id="cursor-follower"></div>
 
     <div class="container">
-        <header>
-            <div class="brand">FLOWSTABLE // PRANAV</div>
-            <div class="status-pill">
-                <div class="status-dot"></div> KERNEL_ACTIVE
+        <nav>
+            <div class="nav-left">
+                <div class="brand-id">PRANAV // ARCHITECT</div>
+                <div class="nav-status">STATUS: KERNEL_OPERATIONAL</div>
             </div>
-        </header>
+            <div class="time-display" id="clock">00:00:00 UTC</div>
+        </nav>
 
-        <main>
-            <div class="layout-grid">
-                <!-- Main Identity -->
-                <section class="card hero-main">
-                    <span class="label">LEAD ARCHITECT</span>
-                    <h1 class="hero-title">WEAVING<br>PRIVACY.</h1>
-                    <p class="hero-tagline">
-                        Web3 Engineer building <span>Flowstable.in</span>. Specializing in high-integrity on-chain
-                        systems, <span>AOSP hardware abstraction</span>, and custom firmware logic.
-                    </p>
-                </section>
+        <main class="grid-layout">
+            <!-- Hero -->
+            <section class="panel headline-panel">
+                <div class="panel-label"><span>V.04 // CORE_IDENTITY</span><span>01/01</span></div>
+                <h1 class="headline">SYSTEMS<br>ENGINEER.</h1>
+            </section>
 
-                <!-- Systems Card -->
-                <section class="card side-card">
-                    <div>
-                        <span class="label">OS SYSTEMS</span>
-                        <div class="stat-value">AOSP</div>
-                    </div>
-                    <div style="font-size: 1.1rem; color: var(--text-secondary);">
-                        Architecting custom ROMs and firmware that prioritize user sovereignty.
-                    </div>
-                </section>
-            </div>
-
-            <div class="layout-grid">
-                <!-- Stack -->
-                <div class="card w-5">
-                    <span class="label">CORE TECHNOLOGY</span>
-                    <div class="list-item">Rust / Solidity <span>WEB3</span></div>
-                    <div class="list-item">C++ / Java <span>AOSP</span></div>
-                    <div class="list-item">TypeScript <span>UI/UX</span></div>
-                    <div class="list-item">PostgreSQL <span>DATABASE</span></div>
+            <!-- Systems / ROMs -->
+            <section class="panel systems-panel">
+                <div class="panel-label"><span>LOW_LEVEL // FIRMWARE</span></div>
+                <div class="list-entry">
+                    <div class="entry-title">AOSP Internal</div>
+                    <div class="entry-meta">CUSTOM_ROM</div>
                 </div>
-
-                <!-- Projects -->
-                <div class="card w-7">
-                    <span class="label">ACTIVE_OPERATIONS</span>
-                    <div class="list-item">Flowstable.in <span>FOUNDER</span></div>
-                    <div class="list-item">Custom ROM Engine <span>AOSP</span></div>
-                    <div class="list-item">Privacy Protocols <span>WEB3</span></div>
-                    <div class="list-item">Industrial UI Kit <span>DESIGN</span></div>
+                <div class="list-entry">
+                    <div class="entry-title">Kernel Tuning</div>
+                    <div class="entry-meta">FIRMWARE</div>
                 </div>
-            </div>
-
-            <div class="layout-grid">
-                <!-- Privacy Statement -->
-                <div class="card w-6 privacy-card">
-                    <span class="label">MISSION</span>
-                    <div class="item-text" style="font-size: 1.8rem; line-height: 1.2; letter-spacing: -0.05em;">
-                        Building at the intersection of privacy, systems, and beauty.
-                    </div>
+                <div class="list-entry">
+                    <div class="entry-title">Hardware Abstraction</div>
+                    <div class="entry-meta">HAL_LAYER</div>
                 </div>
-
-                <!-- Stats/Extra -->
-                <div class="card w-3">
-                    <span class="label">LATENCY</span>
-                    <div class="stat-value" style="font-size: 2rem;">0.00ms</div>
+                <div class="list-entry">
+                    <div class="entry-title">Flowstable OS</div>
+                    <div class="entry-meta">BUILDING_NOW</div>
                 </div>
-                <div class="card w-3">
-                    <span class="label">UPTIME</span>
-                    <div class="stat-value" style="font-size: 2rem;">99.9%</div>
+                <div style="margin-top: auto; color: var(--text-secondary); font-size: 0.9rem;">
+                    Solving hardware complexity through code.
                 </div>
-            </div>
+            </section>
 
-            <div class="social-bar">
+            <!-- Flowstable Project -->
+            <section class="panel w-7">
+                <div class="panel-label"><span>FOUNDATION // STARTUP</span></div>
+                <h2 class="project-title">Flowstable.in</h2>
+                <p class="project-desc">
+                    The next evolution of <span>privacy-first systems</span>. Merging the openness of AOSP with the
+                    security of Web3 privacy protocols.
+                </p>
+            </section>
+
+            <!-- Social Links -->
+            <section class="panel w-3" style="padding: 0;">
                 <a href="https://github.com/Yours-Pranav" target="_blank" class="social-link"><i
                         data-lucide="github"></i></a>
+            </section>
+            <section class="panel w-2" style="padding: 0;">
                 <a href="https://x.com/Pranav0x" target="_blank" class="social-link"><i data-lucide="twitter"></i></a>
-                <a href="https://t.me/Pranav0x" target="_blank" class="social-link"><i data-lucide="send"></i></a>
-                <a href="mailto:connect@pranav0x.xyz" class="social-link"><i data-lucide="mail"></i></a>
-            </div>
+            </section>
+
+            <!-- Tech Matrix -->
+            <section class="panel w-6">
+                <div class="panel-label"><span>MATRIX // TECHNOLOGY</span></div>
+                <div class="tech-matrix">
+                    <div class="stack-group">
+                        <h4>Substrate</h4>
+                        <div class="stack-items">
+                            <span class="stack-tag">C++</span>
+                            <span class="stack-tag">Rust</span>
+                            <span class="stack-tag">Java</span>
+                        </div>
+                    </div>
+                    <div class="stack-group">
+                        <h4>Application</h4>
+                        <div class="stack-items">
+                            <span class="stack-tag">TS</span>
+                            <span class="stack-tag">Solidity</span>
+                            <span class="stack-tag">React</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Privacy Panel -->
+            <section class="panel privacy-panel">
+                <div class="panel-label"><span>FOCUS // PHILOSOPHY</span></div>
+                <h2 class="project-title">Hardened Privacy</h2>
+                <p class="project-desc">
+                    Privacy is not a feature, it is the root. Building <span>untraceable systems</span> from the
+                    hardware level up to the smart contract.
+                </p>
+            </section>
+
         </main>
 
         <footer>
-            <div>PRANAV // SYSTEMS RESEARCH</div>
-            <div>FLOWSTABLE_ORIGIN_V4.1</div>
-            <div id="clock">00:00:00 UTC</div>
+            <div>© 2026 PRANAV_INTERNAL</div>
+            <div>FLOWSTABLE_CORE_V4</div>
+            <div>INDIA_NODE_ACTIVE</div>
         </footer>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // Enhanced Cursor
         const cursor = document.getElementById('cursor');
         const follower = document.getElementById('cursor-follower');
         let mouseX = 0, mouseY = 0;
@@ -420,42 +459,39 @@
             cursor.style.top = mouseY + 'px';
         });
 
-        function animateFollower() {
-            followerX += (mouseX - followerX - 17) * 0.15;
-            followerY += (mouseY - followerY - 17) * 0.15;
+        // Smooth physics-based cursor
+        function render() {
+            followerX += (mouseX - followerX - 20) * 0.12;
+            followerY += (mouseY - followerY - 20) * 0.12;
             follower.style.left = followerX + 'px';
             follower.style.top = followerY + 'px';
-            requestAnimationFrame(animateFollower);
+            requestAnimationFrame(render);
         }
-        animateFollower();
+        render();
 
-        // Cursor Interact
-        const interactables = document.querySelectorAll('.card, .social-link, a');
-        interactables.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                follower.style.transform = 'scale(1.8)';
-                follower.style.background = 'rgba(255, 255, 255, 0.1)';
-                follower.style.border = '1px solid white';
-                if (el.classList.contains('privacy-card')) {
-                    follower.style.border = '1px solid black';
-                    follower.style.background = 'rgba(0, 0, 0, 0.1)';
+        // Interactive states
+        const panels = document.querySelectorAll('.panel, a');
+        panels.forEach(p => {
+            p.addEventListener('mouseenter', () => {
+                follower.style.transform = 'scale(1.5)';
+                follower.style.background = 'rgba(255,255,255,0.05)';
+                if (p.classList.contains('privacy-panel')) {
+                    follower.style.borderColor = 'black';
+                    follower.style.background = 'rgba(0,0,0,0.05)';
                 }
             });
-            el.addEventListener('mouseleave', () => {
+            p.addEventListener('mouseleave', () => {
                 follower.style.transform = 'scale(1)';
                 follower.style.background = 'transparent';
-                follower.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+                follower.style.borderColor = 'rgba(255,255,255,0.15)';
             });
         });
 
-        // UTC Clock
-        function updateClock() {
-            const now = new Date();
-            const timeStr = now.toISOString().split('T')[1].split('.')[0] + ' UTC';
-            document.getElementById('clock').textContent = timeStr;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        // Clock Update
+        setInterval(() => {
+            const time = new Date().toISOString().split('T')[1].split('.')[0] + ' UTC';
+            document.getElementById('clock').textContent = time;
+        }, 1000);
     </script>
 </body>
 
