@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRANAV // SYSTEMS</title>
+    <title>PRANAV // FLOWSTABLE</title>
 
     <!-- SEO -->
-    <meta name="description" content="Pranav - Web3 Engineer. High-performance systems and on-chain intelligence.">
-    <meta name="keywords" content="Web3, Engineer, Rust, Ethereum, Blockchain, Systems">
+    <meta name="description"
+        content="Pranav - Web3 & AOSP Systems Engineer. Founder of Flowstable. Building at the intersection of privacy, on-chain systems, and custom firmware.">
+    <meta name="keywords"
+        content="Flowstable, Web3, AOSP, Custom ROM, Privacy, Systems Engineer, Rust, Solidity, Firmware">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,16 +26,16 @@
         :root {
             --bg: #000000;
             --surface: #0a0a0a;
-            --surface-hover: #111111;
+            --surface-hover: #121212;
             --border: #1a1a1a;
-            --border-bright: #2a2a2a;
+            --border-bright: #333333;
             --text-primary: #ffffff;
-            --text-secondary: #71717a;
-            --text-tertiary: #3f3f46;
+            --text-secondary: #888888;
+            --text-tertiary: #444444;
             --accent: #ffffff;
             --font-main: 'Outfit', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --card-radius: 12px;
+            --card-radius: 16px;
         }
 
         * {
@@ -41,7 +43,6 @@
             padding: 0;
             box-sizing: border-box;
             cursor: none;
-            /* Custom cursor for premium feel */
         }
 
         body {
@@ -50,34 +51,32 @@
             font-family: var(--font-main);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            letter-spacing: -0.01em;
         }
 
         /* Custom Cursor */
         #cursor {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: white;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: transform 0.1s ease;
         }
 
         #cursor-follower {
-            width: 40px;
-            height: 40px;
+            width: 34px;
+            height: 34px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             z-index: 9998;
-            transition: all 0.15s ease-out;
+            transition: transform 0.1s ease-out, background 0.3s ease, border 0.3s ease;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
             min-height: 100vh;
@@ -85,107 +84,122 @@
             flex-direction: column;
         }
 
-        /* Header / Nav */
+        /* Nav */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 4rem;
+            padding: 1.5rem 0;
+            margin-bottom: 3rem;
         }
 
-        .logo {
+        .brand {
             font-family: var(--font-mono);
             font-weight: 800;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             letter-spacing: -0.05em;
         }
 
-        .time-box {
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.3rem 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.7rem;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
             color: var(--text-secondary);
         }
 
-        /* Hero */
-        .hero-section {
-            margin-bottom: 6rem;
+        .status-dot {
+            width: 5px;
+            height: 5px;
+            background: #ffffff;
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #ffffff;
         }
 
-        .hero-title {
-            font-size: clamp(3rem, 10vw, 8rem);
-            font-weight: 800;
-            line-height: 0.9;
-            letter-spacing: -0.06em;
-            margin-left: -0.05em;
-            text-transform: uppercase;
-        }
-
-        .hero-sub {
-            display: flex;
-            gap: 4rem;
-            margin-top: 2rem;
-            align-items: flex-start;
-        }
-
-        .hero-bio {
-            max-width: 500px;
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-        }
-
-        .hero-bio span {
-            color: var(--text-primary);
-        }
-
-        /* Bento Grid */
-        .grid {
+        /* Hero Layout */
+        .layout-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            grid-auto-rows: minmax(160px, auto);
-            gap: 1rem;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
         }
 
-        .item {
+        .card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--card-radius);
-            padding: 1.5rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .card:hover {
+            border-color: var(--border-bright);
+            background: var(--surface-hover);
+        }
+
+        /* Hero Main */
+        .hero-main {
+            grid-column: span 8;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 400px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 0.85;
+            letter-spacing: -0.07em;
+            text-transform: uppercase;
+            margin-left: -0.05em;
+        }
+
+        .hero-tagline {
+            margin-top: 1.5rem;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+        }
+
+        .hero-tagline span {
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        /* Side Cards */
+        .side-card {
+            grid-column: span 4;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .item:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-bright);
-            transform: translateY(-2px);
-        }
-
-        .item-label {
+        .label {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-tertiary);
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15rem;
+            color: var(--text-tertiary);
             margin-bottom: 1rem;
+            display: block;
         }
 
-        .item-content {
-            font-size: 1.5rem;
-            font-weight: 500;
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.04em;
         }
 
-        .item-content.mono {
-            font-family: var(--font-mono);
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-        }
-
-        /* Specific Sizes */
+        /* Bento Pieces */
         .w-6 {
             grid-column: span 6;
         }
@@ -194,37 +208,61 @@
             grid-column: span 4;
         }
 
-        .w-8 {
-            grid-column: span 8;
-        }
-
         .w-3 {
             grid-column: span 3;
         }
 
-        .w-9 {
-            grid-column: span 9;
+        .w-5 {
+            grid-column: span 5;
         }
 
-        .w-12 {
-            grid-column: span 12;
+        .w-7 {
+            grid-column: span 7;
         }
 
-        .h-2 {
-            grid-row: span 2;
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item span {
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        /* Privacy Focus */
+        .privacy-card {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .privacy-card .label {
+            color: #888;
+        }
+
+        .privacy-card .item-text {
+            font-weight: 600;
         }
 
         /* Socials */
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
+        .social-bar {
+            display: flex;
             gap: 1rem;
-            grid-column: span 12;
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
 
-        .social-btn {
-            height: 100px;
+        .social-link {
+            flex: 1;
+            height: 70px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--card-radius);
@@ -233,13 +271,12 @@
             justify-content: center;
             text-decoration: none;
             color: var(--text-secondary);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
-        .social-btn:hover {
+        .social-link:hover {
             color: var(--text-primary);
             border-color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.05);
         }
 
         /* Footer */
@@ -248,62 +285,23 @@
             padding: 4rem 0 2rem;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border);
             font-family: var(--font-mono);
             font-size: 0.7rem;
             color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
         }
 
-        /* Utilities */
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.25rem 0.75rem;
-            background: rgba(0, 255, 128, 0.1);
-            color: #00ff80;
-            border-radius: 100px;
-            font-size: 0.7rem;
-            font-family: var(--font-mono);
-        }
+        @media (max-width: 1000px) {
 
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background: currentColor;
-            border-radius: 50%;
-            margin-right: 8px;
-            box-shadow: 0 0 8px currentColor;
-        }
-
-        /* Scroll Progress */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: white;
-            z-index: 10000;
-            width: 0%;
-        }
-
-        @media (max-width: 900px) {
-
+            .hero-main,
+            .side-card,
             .w-6,
             .w-4,
-            .w-8,
             .w-3,
-            .w-9 {
+            .w-5,
+            .w-7 {
                 grid-column: span 12;
-            }
-
-            .hero-sub {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .social-grid {
-                grid-template-columns: repeat(3, 1fr);
             }
 
             .hero-title {
@@ -317,130 +315,140 @@
 
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
-    <div class="scroll-progress" id="progress"></div>
 
     <div class="container">
         <header>
-            <div class="logo">PRANAV // 0X</div>
+            <div class="brand">FLOWSTABLE // PRANAV</div>
             <div class="status-pill">
-                <div class="status-dot"></div> ACTIVE_NODE
+                <div class="status-dot"></div> KERNEL_ACTIVE
             </div>
-            <div class="time-box" id="clock">00:00:00 UTC</div>
         </header>
 
         <main>
-            <section class="hero-section">
-                <h1 class="hero-title">ENGINEER<br>SYSTEMS.</h1>
-                <div class="hero-sub">
-                    <p class="hero-bio">
-                        Full-stack architect specializing in <span>Web3 Infrastructure</span>, high-performance
-                        <span>on-chain intelligence</span>, and unlisted operations.
+            <div class="layout-grid">
+                <!-- Main Identity -->
+                <section class="card hero-main">
+                    <span class="label">LEAD ARCHITECT</span>
+                    <h1 class="hero-title">WEAVING<br>PRIVACY.</h1>
+                    <p class="hero-tagline">
+                        Web3 Engineer building <span>Flowstable.in</span>. Specializing in high-integrity on-chain
+                        systems, <span>AOSP hardware abstraction</span>, and custom firmware logic.
                     </p>
-                    <div class="item-label" style="margin-top: 0.5rem;">BASED IN IND // DEPLOYED GLOBALLY</div>
-                </div>
-            </section>
+                </section>
 
-            <div class="grid">
+                <!-- Systems Card -->
+                <section class="card side-card">
+                    <div>
+                        <span class="label">OS SYSTEMS</span>
+                        <div class="stat-value">AOSP</div>
+                    </div>
+                    <div style="font-size: 1.1rem; color: var(--text-secondary);">
+                        Architecting custom ROMs and firmware that prioritize user sovereignty.
+                    </div>
+                </section>
+            </div>
+
+            <div class="layout-grid">
                 <!-- Stack -->
-                <div class="item w-8">
-                    <span class="item-label">Core Stack</span>
-                    <div class="item-content">Rust, Solidity, TypeScript, React, PostgreSQL</div>
+                <div class="card w-5">
+                    <span class="label">CORE TECHNOLOGY</span>
+                    <div class="list-item">Rust / Solidity <span>WEB3</span></div>
+                    <div class="list-item">C++ / Java <span>AOSP</span></div>
+                    <div class="list-item">TypeScript <span>UI/UX</span></div>
+                    <div class="list-item">PostgreSQL <span>DATABASE</span></div>
                 </div>
 
-                <!-- Expertise -->
-                <div class="item w-4">
-                    <span class="item-label">Availability</span>
-                    <div class="item-content">Laziness Optimized. Efficiency Driven.</div>
+                <!-- Projects -->
+                <div class="card w-7">
+                    <span class="label">ACTIVE_OPERATIONS</span>
+                    <div class="list-item">Flowstable.in <span>FOUNDER</span></div>
+                    <div class="list-item">Custom ROM Engine <span>AOSP</span></div>
+                    <div class="list-item">Privacy Protocols <span>WEB3</span></div>
+                    <div class="list-item">Industrial UI Kit <span>DESIGN</span></div>
                 </div>
+            </div>
 
-                <!-- Projects / Ops -->
-                <div class="item w-6 h-2">
-                    <span class="item-label">Recent Operations</span>
-                    <div class="item-content" style="font-size: 1.1rem; line-height: 1.8;">
-                        • neurix.syn // core builder<br>
-                        • unlisted.ops // architect<br>
-                        • liquid.stax // protocol dev<br>
-                        • neural.net // research
+            <div class="layout-grid">
+                <!-- Privacy Statement -->
+                <div class="card w-6 privacy-card">
+                    <span class="label">MISSION</span>
+                    <div class="item-text" style="font-size: 1.8rem; line-height: 1.2; letter-spacing: -0.05em;">
+                        Building at the intersection of privacy, systems, and beauty.
                     </div>
                 </div>
 
-                <!-- Quote / Vibe -->
-                <div class="item w-6">
-                    <span class="item-label">Philosophy</span>
-                    <div class="item-content" style="font-style: italic; font-weight: 300;">"Simplicity is the soul of
-                        efficiency."</div>
+                <!-- Stats/Extra -->
+                <div class="card w-3">
+                    <span class="label">LATENCY</span>
+                    <div class="stat-value" style="font-size: 2rem;">0.00ms</div>
                 </div>
+                <div class="card w-3">
+                    <span class="label">UPTIME</span>
+                    <div class="stat-value" style="font-size: 2rem;">99.9%</div>
+                </div>
+            </div>
 
-                <!-- Stats -->
-                <div class="item w-3">
-                    <span class="item-label">Uptime</span>
-                    <div class="item-content mono">99.98%</div>
-                </div>
-                <div class="item w-3">
-                    <span class="item-label">Latency</span>
-                    <div class="item-content mono">&lt; 12ms</div>
-                </div>
-
-                <!-- Socials Section -->
-                <div class="social-grid">
-                    <a href="https://github.com/Yours-Pranav" target="_blank" class="social-btn">
-                        <i data-lucide="github"></i>
-                    </a>
-                    <a href="https://x.com/Pranav0x" target="_blank" class="social-btn">
-                        <i data-lucide="twitter"></i>
-                    </a>
-                    <a href="https://instagram.com/Pra_nav.19" target="_blank" class="social-btn">
-                        <i data-lucide="instagram"></i>
-                    </a>
-                    <a href="https://t.me/Pranav0x" target="_blank" class="social-btn">
-                        <i data-lucide="send"></i>
-                    </a>
-                    <a href="mailto:connect@pranav0x.xyz" class="social-btn">
-                        <i data-lucide="mail"></i>
-                    </a>
-                </div>
+            <div class="social-bar">
+                <a href="https://github.com/Yours-Pranav" target="_blank" class="social-link"><i
+                        data-lucide="github"></i></a>
+                <a href="https://x.com/Pranav0x" target="_blank" class="social-link"><i data-lucide="twitter"></i></a>
+                <a href="https://t.me/Pranav0x" target="_blank" class="social-link"><i data-lucide="send"></i></a>
+                <a href="mailto:connect@pranav0x.xyz" class="social-link"><i data-lucide="mail"></i></a>
             </div>
         </main>
 
         <footer>
-            <div>© 2026 INTERNAL_REGISTRY</div>
-            <div>VER: 4.0.0_STABLE</div>
-            <div>BUILD: 2026.01.30</div>
+            <div>PRANAV // SYSTEMS RESEARCH</div>
+            <div>FLOWSTABLE_ORIGIN_V4.1</div>
+            <div id="clock">00:00:00 UTC</div>
         </footer>
     </div>
 
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Custom Cursor Logic
+        // Enhanced Cursor
         const cursor = document.getElementById('cursor');
         const follower = document.getElementById('cursor-follower');
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
 
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-
-            setTimeout(() => {
-                follower.style.left = e.clientX - 16 + 'px';
-                follower.style.top = e.clientY - 16 + 'px';
-            }, 50);
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
         });
 
-        // Hover Effect for Cursor
-        const interactables = document.querySelectorAll('.item, .social-btn, a');
+        function animateFollower() {
+            followerX += (mouseX - followerX - 17) * 0.15;
+            followerY += (mouseY - followerY - 17) * 0.15;
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+            requestAnimationFrame(animateFollower);
+        }
+        animateFollower();
+
+        // Cursor Interact
+        const interactables = document.querySelectorAll('.card, .social-link, a');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => {
-                follower.style.transform = 'scale(1.5)';
+                follower.style.transform = 'scale(1.8)';
                 follower.style.background = 'rgba(255, 255, 255, 0.1)';
+                follower.style.border = '1px solid white';
+                if (el.classList.contains('privacy-card')) {
+                    follower.style.border = '1px solid black';
+                    follower.style.background = 'rgba(0, 0, 0, 0.1)';
+                }
             });
             el.addEventListener('mouseleave', () => {
                 follower.style.transform = 'scale(1)';
                 follower.style.background = 'transparent';
+                follower.style.border = '1px solid rgba(255, 255, 255, 0.2)';
             });
         });
 
-        // Clock Logic
+        // UTC Clock
         function updateClock() {
             const now = new Date();
             const timeStr = now.toISOString().split('T')[1].split('.')[0] + ' UTC';
@@ -448,14 +456,6 @@
         }
         setInterval(updateClock, 1000);
         updateClock();
-
-        // Scroll Progress
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progress').style.width = scrolled + '%';
-        });
     </script>
 </body>
 
