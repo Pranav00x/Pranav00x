@@ -4,19 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRANAV // SYSTEMS ARCHITECT</title>
+    <title>PRANAV // WEB3 BUILDER</title>
 
     <!-- SEO -->
     <meta name="description"
-        content="Pranav - Privacy & Systems Engineer. Founder of Flowstable. Building AOSP, Custom Firmware, and Web3 Privacy Infrastructure.">
-    <meta name="keywords"
-        content="Flowstable, AOSP, Custom ROM, Privacy, Web3, Systems Engineer, Rust, Solidity, C++, Firmware">
+        content="Pranav - Web3 Engineer & Founder of Flowstable. Building wallets, infrastructure, and privacy-focused dApps.">
+    <meta name="keywords" content="Flowstable, Web3, Wallet, Blockchain, dApps, Privacy, Engineer, Pranav">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600;800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;600;800&family=JetBrains+Mono:wght@300;400;500&display=swap"
         rel="stylesheet">
 
     <!-- Icons -->
@@ -24,42 +23,37 @@
 
     <style>
         :root {
-            --bg: #000000;
-            --surface: #0a0a0a;
-            --surface-hover: #121212;
-            --border: #1a1a1a;
-            --border-bright: #333333;
-            --text-primary: #ffffff;
-            --text-secondary: #8d8d8d;
-            --text-tertiary: #444444;
-            --accent: #5e5e5e;
+            --bg: #ffffff;
+            --text-main: #000000;
+            --text-muted: #666666;
+            --border: #eeeeee;
+            --surface: #fafafa;
+            --accent: #000000;
             --font-main: 'Outfit', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --card-radius: 4px;
-            /* Harder edges for industrial feel */
         }
 
+        /* RESET & BASE */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             cursor: none;
-            -webkit-font-smoothing: antialiased;
         }
 
         body {
             background-color: var(--bg);
-            color: var(--text-primary);
+            color: var(--text-main);
             font-family: var(--font-main);
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            line-height: 1.5;
         }
 
-        /* Custom Cursor */
+        /* CUSTOM CURSOR */
         #cursor {
-            width: 4px;
-            height: 4px;
-            background: white;
+            width: 6px;
+            height: 6px;
+            background: black;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
@@ -69,7 +63,7 @@
         #cursor-follower {
             width: 40px;
             height: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
@@ -78,261 +72,183 @@
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 1.5rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding: 4rem 2rem;
         }
 
-        /* Top Navigation */
-        nav {
+        /* HEADER */
+        header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            padding: 1rem 0 3rem 0;
+            align-items: center;
+            margin-bottom: 8rem;
         }
 
-        .nav-left {
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .nav-link {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        /* HERO */
+        .hero {
+            margin-bottom: 10rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 600;
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .hero p span {
+            color: var(--text-main);
+            font-weight: 400;
+        }
+
+        /* PRODUCTS/WORK SECTION */
+        .section-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 8rem;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: 32px;
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.2, 1);
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            justify-content: space-between;
+            min-height: 380px;
         }
 
-        .brand-id {
-            font-family: var(--font-mono);
-            font-weight: 800;
-            font-size: 0.9rem;
-            letter-spacing: -0.02em;
+        .card:hover {
+            background: #f0f0f0;
+            transform: translateY(-8px);
         }
 
-        .nav-status {
+        .card h3 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
             font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--text-tertiary);
+            font-size: 0.65rem;
+            padding: 0.4rem 0.8rem;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            text-transform: uppercase;
+        }
+
+        /* PASSIONS / SECONDARY */
+        .secondary-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 8rem;
+        }
+
+        .secondary-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .secondary-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* SOCIALS */
+        .socials {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .social-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            transition: opacity 0.2s;
+        }
+
+        .social-link:hover {
+            opacity: 0.5;
+        }
+
+        /* FOOTER */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
 
-        .time-display {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
+        @media (max-width: 800px) {
 
-        /* Main Grid */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1rem;
-            flex-grow: 1;
-        }
-
-        .panel {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--card-radius);
-            padding: 1.5rem;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-        }
-
-        .panel:hover {
-            border-color: var(--border-bright);
-        }
-
-        .panel-label {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* Big Headline */
-        .headline-panel {
-            grid-column: span 8;
-            grid-row: span 2;
-            justify-content: flex-end;
-            min-height: 450px;
-        }
-
-        .headline {
-            font-size: clamp(3rem, 10vw, 8.5rem);
-            font-weight: 800;
-            line-height: 0.8;
-            letter-spacing: -0.07em;
-            text-transform: uppercase;
-            margin-left: -0.06em;
-        }
-
-        /* Systems / Firmware List */
-        .systems-panel {
-            grid-column: span 4;
-            grid-row: span 2;
-        }
-
-        .list-entry {
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-
-        .list-entry:last-child {
-            border-bottom: none;
-        }
-
-        .entry-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .entry-meta {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            color: var(--text-tertiary);
-        }
-
-        /* Projects Bento */
-        .w-6 {
-            grid-column: span 6;
-        }
-
-        .w-3 {
-            grid-column: span 3;
-        }
-
-        .w-4 {
-            grid-column: span 4;
-        }
-
-        .w-5 {
-            grid-column: span 5;
-        }
-
-        .w-7 {
-            grid-column: span 7;
-        }
-
-        .project-title {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-desc {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            max-width: 90%
-        }
-
-        .project-desc span {
-            color: var(--text-primary);
-            font-weight: 400;
-        }
-
-        /* Inverted / Privacy Panel */
-        .privacy-panel {
-            background: #ffffff;
-            color: #000000;
-            grid-column: span 6;
-        }
-
-        .privacy-panel .panel-label {
-            color: #aaaaaa;
-        }
-
-        .privacy-panel .project-title {
-            color: #000;
-        }
-
-        .privacy-panel .project-desc {
-            color: #444;
-        }
-
-        /* Tech Matrix */
-        .tech-matrix {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .stack-group h4 {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-tertiary);
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-        }
-
-        .stack-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .stack-tag {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            padding: 0.2rem 0.5rem;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-
-        /* Social Interface */
-        .social-link {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: var(--text-secondary);
-            transition: all 0.2s ease;
-        }
-
-        .social-link:hover {
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
-
-        @media (max-width: 1000px) {
-
-            .headline-panel,
-            .systems-panel,
-            .w-6,
-            .w-3,
-            .w-4,
-            .w-5,
-            .w-7 {
-                grid-column: span 12;
+            .product-grid,
+            .secondary-sections {
+                grid-template-columns: 1fr;
             }
 
-            .headline {
-                font-size: 4.5rem;
+            .hero h1 {
+                font-size: 3.5rem;
             }
         }
     </style>
@@ -344,109 +260,87 @@
     <div id="cursor-follower"></div>
 
     <div class="container">
-        <nav>
-            <div class="nav-left">
-                <div class="brand-id">PRANAV // ARCHITECT</div>
-                <div class="nav-status">STATUS: KERNEL_OPERATIONAL</div>
-            </div>
-            <div class="time-display" id="clock">00:00:00 UTC</div>
-        </nav>
+        <header>
+            <div class="logo">PRANAV</div>
+            <a href="mailto:connect@pranav0x.xyz" class="nav-link">GET IN TOUCH</a>
+        </header>
 
-        <main class="grid-layout">
-            <!-- Hero -->
-            <section class="panel headline-panel">
-                <div class="panel-label"><span>V.04 // CORE_IDENTITY</span><span>01/01</span></div>
-                <h1 class="headline">SYSTEMS<br>ENGINEER.</h1>
-            </section>
-
-            <!-- Systems / ROMs -->
-            <section class="panel systems-panel">
-                <div class="panel-label"><span>LOW_LEVEL // FIRMWARE</span></div>
-                <div class="list-entry">
-                    <div class="entry-title">AOSP Internal</div>
-                    <div class="entry-meta">CUSTOM_ROM</div>
-                </div>
-                <div class="list-entry">
-                    <div class="entry-title">Kernel Tuning</div>
-                    <div class="entry-meta">FIRMWARE</div>
-                </div>
-                <div class="list-entry">
-                    <div class="entry-title">Hardware Abstraction</div>
-                    <div class="entry-meta">HAL_LAYER</div>
-                </div>
-                <div class="list-entry">
-                    <div class="entry-title">Flowstable OS</div>
-                    <div class="entry-meta">BUILDING_NOW</div>
-                </div>
-                <div style="margin-top: auto; color: var(--text-secondary); font-size: 0.9rem;">
-                    Solving hardware complexity through code.
-                </div>
-            </section>
-
-            <!-- Flowstable Project -->
-            <section class="panel w-7">
-                <div class="panel-label"><span>FOUNDATION // STARTUP</span></div>
-                <h2 class="project-title">Flowstable.in</h2>
-                <p class="project-desc">
-                    The next evolution of <span>privacy-first systems</span>. Merging the openness of AOSP with the
-                    security of Web3 privacy protocols.
+        <main>
+            <section class="hero">
+                <h1>Web3 Engineer <br>& Builder.</h1>
+                <p>
+                    Founder of <span>Flowstable</span>. Obsessed with building smooth interfaces,
+                    <span>privacy-first</span> protocols, and robust crypto infrastructure.
                 </p>
             </section>
 
-            <!-- Social Links -->
-            <section class="panel w-3" style="padding: 0;">
+            <section>
+                <h2 class="section-title">Focus</h2>
+                <div class="product-grid">
+                    <!-- Flowstable Wallet -->
+                    <div class="card">
+                        <div>
+                            <h3>Flowstable Wallet</h3>
+                            <p>A high-performance software and hardware wallet ecosystem designed for absolute user
+                                sovereignty.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge">SECURE_CHIP</span>
+                            <span class="badge">NON-CUSTODIAL</span>
+                            <span class="badge">MOBILE</span>
+                        </div>
+                    </div>
+
+                    <!-- Flowstable Chain -->
+                    <div class="card">
+                        <div>
+                            <h3>The Chain</h3>
+                            <p>Architecting an independent network layer to power the next generation of privacy-centric
+                                dApps.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge">L1_PROTOCOL</span>
+                            <span class="badge">PRIVACY_CORE</span>
+                            <span class="badge">SCALABLE</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="secondary-sections">
+                <div class="secondary-card">
+                    <h2 class="section-title">Interests</h2>
+                    <h4>AOSP & Custom ROMs</h4>
+                    <p>When I'm not on-chain, I'm deep in firmware. Building custom Android builds and exploring the
+                        limits of mobile hardware abstraction.</p>
+                </div>
+                <div class="secondary-card">
+                    <h2 class="section-title">Vibe</h2>
+                    <h4>Minimalist Hardware</h4>
+                    <p>I believe technology should be invisible. Powerful tools, stripped of noise, focused entirely on
+                        the user's intent.</p>
+                </div>
+            </section>
+
+            <div class="socials">
                 <a href="https://github.com/Yours-Pranav" target="_blank" class="social-link"><i
                         data-lucide="github"></i></a>
-            </section>
-            <section class="panel w-2" style="padding: 0;">
                 <a href="https://x.com/Pranav0x" target="_blank" class="social-link"><i data-lucide="twitter"></i></a>
-            </section>
-
-            <!-- Tech Matrix -->
-            <section class="panel w-6">
-                <div class="panel-label"><span>MATRIX // TECHNOLOGY</span></div>
-                <div class="tech-matrix">
-                    <div class="stack-group">
-                        <h4>Substrate</h4>
-                        <div class="stack-items">
-                            <span class="stack-tag">C++</span>
-                            <span class="stack-tag">Rust</span>
-                            <span class="stack-tag">Java</span>
-                        </div>
-                    </div>
-                    <div class="stack-group">
-                        <h4>Application</h4>
-                        <div class="stack-items">
-                            <span class="stack-tag">TS</span>
-                            <span class="stack-tag">Solidity</span>
-                            <span class="stack-tag">React</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Privacy Panel -->
-            <section class="panel privacy-panel">
-                <div class="panel-label"><span>FOCUS // PHILOSOPHY</span></div>
-                <h2 class="project-title">Hardened Privacy</h2>
-                <p class="project-desc">
-                    Privacy is not a feature, it is the root. Building <span>untraceable systems</span> from the
-                    hardware level up to the smart contract.
-                </p>
-            </section>
-
+                <a href="https://t.me/Pranav0x" target="_blank" class="social-link"><i data-lucide="send"></i></a>
+            </div>
         </main>
 
         <footer>
-            <div>© 2026 PRANAV_INTERNAL</div>
-            <div>FLOWSTABLE_CORE_V4</div>
-            <div>INDIA_NODE_ACTIVE</div>
+            <div>© 2026 PRANAV</div>
+            <div>BUILDING FLOWSTABLE</div>
+            <div id="clock">00:00:00 UTC</div>
         </footer>
     </div>
 
     <script>
         lucide.createIcons();
 
+        // CURSOR
         const cursor = document.getElementById('cursor');
         const follower = document.getElementById('cursor-follower');
         let mouseX = 0, mouseY = 0;
@@ -459,39 +353,38 @@
             cursor.style.top = mouseY + 'px';
         });
 
-        // Smooth physics-based cursor
-        function render() {
-            followerX += (mouseX - followerX - 20) * 0.12;
-            followerY += (mouseY - followerY - 20) * 0.12;
+        function animate() {
+            followerX += (mouseX - followerX - 20) * 0.15;
+            followerY += (mouseY - followerY - 20) * 0.15;
             follower.style.left = followerX + 'px';
             follower.style.top = followerY + 'px';
-            requestAnimationFrame(render);
+            requestAnimationFrame(animate);
         }
-        render();
+        animate();
 
-        // Interactive states
-        const panels = document.querySelectorAll('.panel, a');
-        panels.forEach(p => {
-            p.addEventListener('mouseenter', () => {
+        // INTERACTIVE
+        const cards = document.querySelectorAll('.card, .social-link, a');
+        cards.forEach(c => {
+            c.addEventListener('mouseenter', () => {
                 follower.style.transform = 'scale(1.5)';
-                follower.style.background = 'rgba(255,255,255,0.05)';
-                if (p.classList.contains('privacy-panel')) {
-                    follower.style.borderColor = 'black';
-                    follower.style.background = 'rgba(0,0,0,0.05)';
-                }
+                follower.style.background = 'rgba(0,0,0,0.02)';
+                follower.style.borderColor = 'rgba(0,0,0,0.8)';
             });
-            p.addEventListener('mouseleave', () => {
+            c.addEventListener('mouseleave', () => {
                 follower.style.transform = 'scale(1)';
                 follower.style.background = 'transparent';
-                follower.style.borderColor = 'rgba(255,255,255,0.15)';
+                follower.style.borderColor = 'rgba(0,0,0,0.1)';
             });
         });
 
-        // Clock Update
-        setInterval(() => {
-            const time = new Date().toISOString().split('T')[1].split('.')[0] + ' UTC';
+        // CLOCK
+        function updateClock() {
+            const now = new Date();
+            const time = now.toISOString().split('T')[1].split('.')[0] + ' UTC';
             document.getElementById('clock').textContent = time;
-        }, 1000);
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 </body>
 
