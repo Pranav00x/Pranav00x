@@ -357,6 +357,25 @@
             text-transform: uppercase;
         }
 
+        /* SYSTEM INTEL */
+        .system-intel {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--accent-green);
+            background: rgba(0, 255, 136, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .intel-item span {
+            color: var(--text-muted);
+            margin-right: 0.5rem;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 900px) {
 
@@ -455,11 +474,18 @@
         </main>
 
         <footer class="footer-bar">
-            <div class="social-icons">
-                <a href="https://github.com/Yours-Pranav" target="_blank" class="social-icon"><i
-                        data-lucide="github"></i></a>
-                <a href="https://x.com/Pranav0x" target="_blank" class="social-icon"><i data-lucide="twitter"></i></a>
-                <a href="https://t.me/Pranav0x" target="_blank" class="social-icon"><i data-lucide="send"></i></a>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <div class="social-icons">
+                    <a href="https://github.com/Yours-Pranav" target="_blank" class="social-icon"><i
+                            data-lucide="github"></i></a>
+                    <a href="https://x.com/Pranav0x" target="_blank" class="social-icon"><i
+                            data-lucide="twitter"></i></a>
+                    <a href="https://t.me/Pranav0x" target="_blank" class="social-icon"><i data-lucide="send"></i></a>
+                </div>
+                <div id="visitor-intel" class="system-intel">
+                    <div class="intel-item"><span>OS:</span><span id="os-info">Detecting...</span></div>
+                    <div class="intel-item"><span>PWR:</span><span id="pwr-info">Detecting...</span></div>
+                </div>
             </div>
             <div class="copyright">© 2026 // P00x.xyz // [UTC-0]</div>
         </footer>
@@ -513,6 +539,40 @@
             });
         });
 
+        // SYSTEM INTEL LOGIC
+        function detectOS() {
+            const platform = window.navigator.platform;
+            const ua = window.navigator.userAgent;
+            if (ua.indexOf("Android") >= 0) return "ANDROID_OS";
+            if (ua.indexOf("iPhone") >= 0 || ua.indexOf("iPad") >= 0) return "IOS_MOBILE";
+            if (platform.indexOf("Win") >= 0) return "WINDOWS_NT";
+            if (platform.indexOf("Mac") >= 0) return "MACOS_X";
+            if (platform.indexOf("Linux") >= 0) return "LINUX_DIST";
+            return "UNKNOWN_SYS";
+        }
+
+        async function updateBattery() {
+            try {
+                if ('getBattery' in navigator) {
+                    const battery = await navigator.getBattery();
+                    const updateInfo = () => {
+                        const level = Math.round(battery.level * 100);
+                        const status = battery.charging ? "CHARGING" : "DISCHARGING";
+                        document.getElementById('pwr-info').textContent = `${level}% [${status}]`;
+                    };
+                    battery.addEventListener('levelchange', updateInfo);
+                    battery.addEventListener('chargingchange', updateInfo);
+                    updateInfo();
+                } else {
+                    document.getElementById('pwr-info').textContent = "UNAVAILABLE";
+                }
+            } catch (e) {
+                document.getElementById('pwr-info').textContent = "ERROR";
+            }
+        }
+
+        document.getElementById('os-info').textContent = detectOS();
+        updateBattery();
     </script>
 </body>
 
