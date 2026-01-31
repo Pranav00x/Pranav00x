@@ -487,7 +487,7 @@
                     <div class="intel-item"><span>PWR:</span><span id="pwr-info">Detecting...</span></div>
                 </div>
             </div>
-            <div class="copyright">© 2026 // P00x.xyz // [UTC-0]</div>
+            <div class="copyright">© 2026 // PRANAV0X.IN // <span id="real-clock">[00:00:00 UTC]</span></div>
         </footer>
     </div>
 
@@ -573,6 +573,15 @@
 
         document.getElementById('os-info').textContent = detectOS();
         updateBattery();
+
+        // REAL-TIME CLOCK
+        function updateClock() {
+            const now = new Date();
+            const time = now.toISOString().split('T')[1].split('.')[0];
+            document.getElementById('real-clock').textContent = `[${time} UTC]`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 </body>
 
