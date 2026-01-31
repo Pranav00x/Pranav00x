@@ -213,70 +213,6 @@
             font-weight: 500;
         }
 
-        /* TERMINAL WIDGET */
-        .terminal-container {
-            margin-top: -4rem;
-            margin-bottom: 6rem;
-            background: var(--surface);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .terminal-header {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 0.75rem 1.25rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .terminal-dots {
-            display: flex;
-            gap: 6px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .terminal-title {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .terminal-body {
-            padding: 1.5rem;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            height: 200px;
-            overflow-y: hidden;
-            line-height: 1.6;
-        }
-
-        .terminal-line {
-            margin-bottom: 0.25rem;
-        }
-
-        .t-green {
-            color: var(--accent-green);
-        }
-
-        .t-purple {
-            color: var(--accent-purple);
-        }
-
-        .t-dim {
-            color: #444;
-        }
 
         /* CARDS GRID */
         .section-header {
@@ -476,27 +412,6 @@
                 </p>
             </section>
 
-            <section class="terminal-container">
-                <div class="terminal-header">
-                    <div class="terminal-dots">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                    <div class="terminal-title">Live Systems Monitor</div>
-                    <div style="width: 40px"></div>
-                </div>
-                <div class="terminal-body" id="terminal">
-                    <div class="terminal-line"><span class="t-dim">[09:21:04]</span> <span
-                            class="t-green">INITIALIZING</span> kernel_hardener_v4.2.0...</div>
-                    <div class="terminal-line"><span class="t-dim">[09:21:05]</span> <span
-                            class="t-purple">SCANNING</span> AOSP partitions for vulnerability signatures...</div>
-                    <div class="terminal-line"><span class="t-dim">[09:21:06]</span> <span
-                            class="t-green">SUCCESS</span> Selinux policies hardened.</div>
-                    <div class="terminal-line"><span class="t-dim">[09:21:08]</span> <span
-                            class="t-green">SYNCING</span> Flowstable privacy-vault nodes...</div>
-                </div>
-            </section>
 
             <section id="ops">
                 <div class="section-header">
@@ -598,34 +513,6 @@
             });
         });
 
-        // TERMINAL ANIMATION
-        const terminal = document.getElementById('terminal');
-        const logs = [
-            "DECRYPTING local_manifest.xml...",
-            "SUCCESS: Fetching repo sync...",
-            "WARNING: Hardware entropy level low. Calibrating...",
-            "ENTROPY: 4096 bits gathered.",
-            "FLOWSTABLE: Deployment sequence initiated.",
-            "SYSTEM: All nodes reporting healthy status.",
-            "PRIVACY: Zero-knowledge proofs generated.",
-            "BOOT: Hardened bootloader active.",
-            "KERNEL: Memory poisoning protection enabled.",
-            "NETWORK: Tunneling through decentralized relays..."
-        ];
-
-        function addLog() {
-            const line = document.createElement('div');
-            line.className = 'terminal-line';
-            const time = new Date().toLocaleTimeString('en-US', { hour12: false });
-            const type = Math.random() > 0.8 ? '<span class="t-purple">SECURE</span>' : '<span class="t-green">OK</span>';
-            line.innerHTML = `<span class="t-dim">[${time}]</span> ${type} ${logs[Math.floor(Math.random() * logs.length)]}`;
-            terminal.appendChild(line);
-
-            if (terminal.childNodes.length > 8) {
-                terminal.removeChild(terminal.childNodes[0]);
-            }
-        }
-        setInterval(addLog, 3000);
     </script>
 </body>
 
