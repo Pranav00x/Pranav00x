@@ -4,494 +4,747 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRANAV // SYSTEMS ARCHITECT</title>
+    <title>PRANAV</title>
 
-    <!-- SEO -->
     <meta name="description"
-        content="Pranav - Privacy & Systems Engineer. Founder of Flowstable. Building AOSP, Custom Firmware, and Web3 Privacy Infrastructure.">
-    <meta name="keywords"
-        content="Flowstable, AOSP, Custom ROM, Privacy, Web3, Systems Engineer, Rust, Solidity, C++, Firmware">
+        content="Pranav - Systems Engineer. Founder of Flowstable. Building AOSP, Custom Firmware, and Privacy Infrastructure.">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600;800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-        rel="stylesheet">
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #000000;
-            --surface: #0a0a0a;
-            --surface-hover: #121212;
-            --border: #1a1a1a;
-            --border-bright: #333333;
-            --text-primary: #ffffff;
-            --text-secondary: #8d8d8d;
-            --text-tertiary: #444444;
-            --accent: #5e5e5e;
-            --font-main: 'Outfit', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --card-radius: 4px;
-            /* Harder edges for industrial feel */
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --border: #222222;
+            --border-hover: #444444;
+            --text: #e8e8e8;
+            --text-dim: #777777;
+            --text-muted: #444444;
+            --white: #ffffff;
+            --accent: #d4d4d4;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'Inter', sans-serif;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none;
-            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: var(--white);
+            color: var(--bg);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text-primary);
-            font-family: var(--font-main);
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            line-height: 1.5;
         }
 
-        /* Custom Cursor */
-        #cursor {
-            width: 4px;
-            height: 4px;
-            background: white;
-            border-radius: 50%;
+        /* ── NOISE OVERLAY ── */
+        body::before {
+            content: '';
             position: fixed;
-            pointer-events: none;
-            z-index: 10000;
-        }
-
-        #cursor-follower {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            position: fixed;
+            inset: 0;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 9999;
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border 0.3s ease;
         }
 
-        .container {
-            max-width: 1600px;
+        /* ── LAYOUT ── */
+        .wrapper {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 1.5rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding: 2rem 2rem 4rem;
         }
 
-        /* Top Navigation */
-        nav {
+        /* ── TOP BAR ── */
+        .topbar {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            padding: 1rem 0 3rem 0;
-        }
-
-        .nav-left {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .brand-id {
-            font-family: var(--font-mono);
-            font-weight: 800;
-            font-size: 0.9rem;
-            letter-spacing: -0.02em;
-        }
-
-        .nav-status {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .time-display {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        /* Main Grid */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1rem;
-            flex-grow: 1;
-        }
-
-        .panel {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--card-radius);
-            padding: 1.5rem;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-        }
-
-        .panel:hover {
-            border-color: var(--border-bright);
-        }
-
-        .panel-label {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* Big Headline */
-        .headline-panel {
-            grid-column: span 8;
-            grid-row: span 2;
-            justify-content: flex-end;
-            min-height: 450px;
-        }
-
-        .headline {
-            font-size: clamp(3rem, 10vw, 8.5rem);
-            font-weight: 800;
-            line-height: 0.8;
-            letter-spacing: -0.07em;
-            text-transform: uppercase;
-            margin-left: -0.06em;
-        }
-
-        /* Systems / Firmware List */
-        .systems-panel {
-            grid-column: span 4;
-            grid-row: span 2;
-        }
-
-        .list-entry {
+            align-items: center;
+            padding: 1.5rem 0;
             border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
+            margin-bottom: 4rem;
+        }
+
+        .topbar-left {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        .topbar-right {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .topbar-right a {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .topbar-right a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text);
+            transition: width 0.3s;
+        }
+
+        .topbar-right a:hover {
+            color: var(--text);
+        }
+
+        .topbar-right a:hover::after {
+            width: 100%;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 4rem 0 6rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4rem;
+        }
+
+        .hero-label {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            font-weight: 900;
+            line-height: 0.88;
+            letter-spacing: -0.06em;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .hero h1 .outline {
+            -webkit-text-stroke: 1.5px var(--white);
+            color: transparent;
+        }
+
+        .hero-sub {
+            margin-top: 2.5rem;
+            max-width: 520px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+
+        .hero-sub strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ── SECTION ── */
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+            margin-bottom: 2.5rem;
         }
 
-        .list-entry:last-child {
-            border-bottom: none;
-        }
-
-        .entry-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .entry-meta {
-            font-family: var(--font-mono);
+        .section-title {
+            font-family: var(--mono);
             font-size: 0.65rem;
-            color: var(--text-tertiary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
         }
 
-        /* Projects Bento */
-        .w-6 {
-            grid-column: span 6;
+        .section-count {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
         }
 
-        .w-3 {
-            grid-column: span 3;
-        }
-
-        .w-4 {
-            grid-column: span 4;
-        }
-
-        .w-5 {
-            grid-column: span 5;
-        }
-
-        .w-7 {
-            grid-column: span 7;
-        }
-
-        .project-title {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-desc {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            max-width: 90%
-        }
-
-        .project-desc span {
-            color: var(--text-primary);
-            font-weight: 400;
-        }
-
-        /* Inverted / Privacy Panel */
-        .privacy-panel {
-            background: #ffffff;
-            color: #000000;
-            grid-column: span 6;
-        }
-
-        .privacy-panel .panel-label {
-            color: #aaaaaa;
-        }
-
-        .privacy-panel .project-title {
-            color: #000;
-        }
-
-        .privacy-panel .project-desc {
-            color: #444;
-        }
-
-        /* Tech Matrix */
-        .tech-matrix {
+        /* ── PROJECT CARDS ── */
+        .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .stack-group h4 {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-tertiary);
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-        }
-
-        .stack-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .stack-tag {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            padding: 0.2rem 0.5rem;
+            gap: 1px;
+            background: var(--border);
             border: 1px solid var(--border);
-            color: var(--text-secondary);
         }
 
-        /* Social Interface */
-        .social-link {
-            width: 100%;
-            height: 100%;
+        .project-card {
+            background: var(--bg);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: background 0.3s;
+            position: relative;
+        }
+
+        .project-card:hover {
+            background: var(--surface);
+        }
+
+        .project-card .num {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .project-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--white);
+        }
+
+        .project-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+
+        .project-card .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .tag {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.05em;
+            padding: 0.3rem 0.6rem;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            text-transform: uppercase;
+            transition: border-color 0.2s;
+        }
+
+        .project-card:hover .tag {
+            border-color: var(--border-hover);
+        }
+
+        /* Featured project (full width) */
+        .project-card.featured {
+            grid-column: 1 / -1;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .project-card.featured .project-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .project-card.featured .project-stat {
+            font-family: var(--mono);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.04em;
+        }
+
+        .project-card.featured .project-stat span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: block;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            margin-top: 0.25rem;
+        }
+
+        /* ── SKILLS ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .skill-cell {
+            background: var(--bg);
+            padding: 2rem;
+            transition: background 0.3s;
+        }
+
+        .skill-cell:hover {
+            background: var(--surface);
+        }
+
+        .skill-cell .skill-category {
+            font-family: var(--mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .skill-cell ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .skill-cell li {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .skill-cell:hover li {
+            color: var(--text);
+        }
+
+        /* ── PHILOSOPHY ── */
+        .philosophy {
+            border: 1px solid var(--border);
+            padding: 4rem;
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .philosophy::before,
+        .philosophy::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: var(--border-hover);
+            border-style: solid;
+        }
+
+        .philosophy::before {
+            top: -1px;
+            left: -1px;
+            border-width: 1px 0 0 1px;
+        }
+
+        .philosophy::after {
+            bottom: -1px;
+            right: -1px;
+            border-width: 0 1px 1px 0;
+        }
+
+        .philosophy blockquote {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 300;
+            line-height: 1.4;
+            color: var(--text);
+            letter-spacing: -0.02em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .philosophy blockquote strong {
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .philosophy .attrib {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 2rem;
+        }
+
+        /* ── CONTACT ── */
+        .contact-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-bottom: 4rem;
+        }
+
+        .contact-bar a {
+            background: var(--bg);
+            padding: 2rem;
+            text-decoration: none;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: var(--text-secondary);
-            transition: all 0.2s ease;
+            justify-content: space-between;
+            transition: background 0.3s;
         }
 
-        .social-link:hover {
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.03);
+        .contact-bar a:hover {
+            background: var(--surface);
         }
 
-        /* Footer */
+        .contact-bar .link-label {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        .contact-bar .link-arrow {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .contact-bar a:hover .link-arrow {
+            transform: translate(4px, -4px);
+            color: var(--text);
+        }
+
+        .contact-bar a:hover .link-label {
+            color: var(--white);
+        }
+
+        /* ── FOOTER ── */
         footer {
-            margin-top: 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
         }
 
-        @media (max-width: 1000px) {
+        footer span {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
 
-            .headline-panel,
-            .systems-panel,
-            .w-6,
-            .w-3,
-            .w-4,
-            .w-5,
-            .w-7 {
-                grid-column: span 12;
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .wrapper {
+                padding: 1.5rem 1.5rem 3rem;
             }
 
-            .headline {
-                font-size: 4.5rem;
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card.featured {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contact-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar-right {
+                gap: 1rem;
+            }
+
+            .philosophy {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 
 <body>
+    <div class="wrapper">
 
-    <div id="cursor"></div>
-    <div id="cursor-follower"></div>
-
-    <div class="container">
-        <nav>
-            <div class="nav-left">
-                <div class="brand-id">PRANAV // ARCHITECT</div>
-                <div class="nav-status">STATUS: KERNEL_OPERATIONAL</div>
+        <!-- TOP BAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <span class="status-dot"></span>Pranav
             </div>
-            <div class="time-display" id="clock">00:00:00 UTC</div>
-        </nav>
+            <nav class="topbar-right">
+                <a href="#work">Work</a>
+                <a href="#stack">Stack</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
 
-        <main class="grid-layout">
-            <!-- Hero -->
-            <section class="panel headline-panel">
-                <div class="panel-label"><span>V.04 // CORE_IDENTITY</span><span>01/01</span></div>
-                <h1 class="headline">SYSTEMS<br>ENGINEER.</h1>
-            </section>
+        <!-- HERO -->
+        <section class="hero reveal">
+            <div class="hero-label">Systems Engineer &mdash; India</div>
+            <h1>BUILD<br>SYSTEMS.<br><span class="outline">NOT HYPE.</span></h1>
+            <p class="hero-sub">
+                Founder of <strong>Flowstable</strong>. I work at the intersection of
+                <strong>low-level firmware</strong>, <strong>AOSP</strong>, and <strong>privacy infrastructure</strong>.
+                Building things that run silent and run deep.
+            </p>
+        </section>
 
-            <!-- Systems / ROMs -->
-            <section class="panel systems-panel">
-                <div class="panel-label"><span>LOW_LEVEL // FIRMWARE</span></div>
-                <div class="list-entry">
-                    <div class="entry-title">AOSP Internal</div>
-                    <div class="entry-meta">CUSTOM_ROM</div>
-                </div>
-                <div class="list-entry">
-                    <div class="entry-title">Kernel Tuning</div>
-                    <div class="entry-meta">FIRMWARE</div>
-                </div>
-                <div class="list-entry">
-                    <div class="entry-title">Hardware Abstraction</div>
-                    <div class="entry-meta">HAL_LAYER</div>
-                </div>
-                <div class="list-entry">
-                    <div class="entry-title">Flowstable OS</div>
-                    <div class="entry-meta">BUILDING_NOW</div>
-                </div>
-                <div style="margin-top: auto; color: var(--text-secondary); font-size: 0.9rem;">
-                    Solving hardware complexity through code.
-                </div>
-            </section>
+        <!-- PROJECTS -->
+        <section class="section reveal" id="work">
+            <div class="section-header">
+                <span class="section-title">Selected Work</span>
+                <span class="section-count">04 Projects</span>
+            </div>
 
-            <!-- Flowstable Project -->
-            <section class="panel w-7">
-                <div class="panel-label"><span>FOUNDATION // STARTUP</span></div>
-                <h2 class="project-title">Flowstable.in</h2>
-                <p class="project-desc">
-                    The next evolution of <span>privacy-first systems</span>. Merging the openness of AOSP with the
-                    security of Web3 privacy protocols.
-                </p>
-            </section>
-
-            <!-- Social Links -->
-            <section class="panel w-3" style="padding: 0;">
-                <a href="https://github.com/Yours-Pranav" target="_blank" class="social-link"><i
-                        data-lucide="github"></i></a>
-            </section>
-            <section class="panel w-2" style="padding: 0;">
-                <a href="https://x.com/Pranav0x" target="_blank" class="social-link"><i data-lucide="twitter"></i></a>
-            </section>
-
-            <!-- Tech Matrix -->
-            <section class="panel w-6">
-                <div class="panel-label"><span>MATRIX // TECHNOLOGY</span></div>
-                <div class="tech-matrix">
-                    <div class="stack-group">
-                        <h4>Substrate</h4>
-                        <div class="stack-items">
-                            <span class="stack-tag">C++</span>
-                            <span class="stack-tag">Rust</span>
-                            <span class="stack-tag">Java</span>
+            <div class="projects-grid">
+                <div class="project-card featured">
+                    <div class="project-info">
+                        <span class="num">01</span>
+                        <h3>Flowstable</h3>
+                        <p>Privacy-first systems platform. Merging AOSP openness with hardened security protocols. Custom OS, firmware, and privacy tooling under one roof.</p>
+                        <div class="tags">
+                            <span class="tag">AOSP</span>
+                            <span class="tag">Privacy</span>
+                            <span class="tag">Platform</span>
+                            <span class="tag">Active</span>
                         </div>
                     </div>
-                    <div class="stack-group">
-                        <h4>Application</h4>
-                        <div class="stack-items">
-                            <span class="stack-tag">TS</span>
-                            <span class="stack-tag">Solidity</span>
-                            <span class="stack-tag">React</span>
-                        </div>
+                    <div class="project-stat">
+                        FS<span>Flowstable.in</span>
                     </div>
                 </div>
-            </section>
 
-            <!-- Privacy Panel -->
-            <section class="panel privacy-panel">
-                <div class="panel-label"><span>FOCUS // PHILOSOPHY</span></div>
-                <h2 class="project-title">Hardened Privacy</h2>
-                <p class="project-desc">
-                    Privacy is not a feature, it is the root. Building <span>untraceable systems</span> from the
-                    hardware level up to the smart contract.
-                </p>
-            </section>
+                <div class="project-card">
+                    <span class="num">02</span>
+                    <h3>AOSP Internals</h3>
+                    <p>Custom ROM development. Deep system-level modifications, performance tuning, and hardware abstraction layers.</p>
+                    <div class="tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">Java</span>
+                        <span class="tag">HAL</span>
+                    </div>
+                </div>
 
-        </main>
+                <div class="project-card">
+                    <span class="num">03</span>
+                    <h3>Kernel Engineering</h3>
+                    <p>Kernel tuning, driver development, and firmware optimization for mobile hardware platforms.</p>
+                    <div class="tags">
+                        <span class="tag">Linux</span>
+                        <span class="tag">Firmware</span>
+                        <span class="tag">Drivers</span>
+                    </div>
+                </div>
 
+                <div class="project-card">
+                    <span class="num">04</span>
+                    <h3>Privacy Protocols</h3>
+                    <p>Building untraceable systems from the hardware layer up. On-chain privacy, zero-knowledge proofs, and encrypted communication layers.</p>
+                    <div class="tags">
+                        <span class="tag">Solidity</span>
+                        <span class="tag">Rust</span>
+                        <span class="tag">ZK</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <span class="num">05</span>
+                    <h3>Web Systems</h3>
+                    <p>Full-stack applications with a focus on performance, clean architecture, and minimal overhead.</p>
+                    <div class="tags">
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">React</span>
+                        <span class="tag">Node</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STACK -->
+        <section class="section reveal" id="stack">
+            <div class="section-header">
+                <span class="section-title">Technology</span>
+                <span class="section-count">Stack</span>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-cell">
+                    <div class="skill-category">Systems</div>
+                    <ul>
+                        <li>C / C++</li>
+                        <li>Rust</li>
+                        <li>Linux Kernel</li>
+                        <li>AOSP</li>
+                    </ul>
+                </div>
+                <div class="skill-cell">
+                    <div class="skill-category">Application</div>
+                    <ul>
+                        <li>TypeScript</li>
+                        <li>React</li>
+                        <li>Node.js</li>
+                        <li>Java</li>
+                    </ul>
+                </div>
+                <div class="skill-cell">
+                    <div class="skill-category">Web3</div>
+                    <ul>
+                        <li>Solidity</li>
+                        <li>Ethereum</li>
+                        <li>ZK Proofs</li>
+                        <li>Smart Contracts</li>
+                    </ul>
+                </div>
+                <div class="skill-cell">
+                    <div class="skill-category">Infra</div>
+                    <ul>
+                        <li>Git</li>
+                        <li>Docker</li>
+                        <li>CI/CD</li>
+                        <li>Shell</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHILOSOPHY -->
+        <div class="philosophy reveal">
+            <blockquote>
+                Privacy is not a feature.<br>It is the <strong>root</strong>.
+            </blockquote>
+            <div class="attrib">&mdash; Operating Principle</div>
+        </div>
+
+        <!-- CONTACT -->
+        <section class="section reveal" id="contact">
+            <div class="section-header">
+                <span class="section-title">Connect</span>
+                <span class="section-count">Links</span>
+            </div>
+
+            <div class="contact-bar">
+                <a href="https://github.com/Pranav00x" target="_blank" rel="noopener">
+                    <span class="link-label">GitHub</span>
+                    <span class="link-arrow">&nearr;</span>
+                </a>
+                <a href="https://x.com/Pranav0x" target="_blank" rel="noopener">
+                    <span class="link-label">X / Twitter</span>
+                    <span class="link-arrow">&nearr;</span>
+                </a>
+                <a href="https://flowstable.in" target="_blank" rel="noopener">
+                    <span class="link-label">Flowstable</span>
+                    <span class="link-arrow">&nearr;</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
         <footer>
-            <div>© 2026 PRANAV_INTERNAL</div>
-            <div>FLOWSTABLE_CORE_V4</div>
-            <div>INDIA_NODE_ACTIVE</div>
+            <span>&copy; 2026 Pranav</span>
+            <span id="clock"></span>
+            <span>India</span>
         </footer>
+
     </div>
 
     <script>
-        lucide.createIcons();
-
-        const cursor = document.getElementById('cursor');
-        const follower = document.getElementById('cursor-follower');
-        let mouseX = 0, mouseY = 0;
-        let followerX = 0, followerY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
-        });
-
-        // Smooth physics-based cursor
-        function render() {
-            followerX += (mouseX - followerX - 20) * 0.12;
-            followerY += (mouseY - followerY - 20) * 0.12;
-            follower.style.left = followerX + 'px';
-            follower.style.top = followerY + 'px';
-            requestAnimationFrame(render);
-        }
-        render();
-
-        // Interactive states
-        const panels = document.querySelectorAll('.panel, a');
-        panels.forEach(p => {
-            p.addEventListener('mouseenter', () => {
-                follower.style.transform = 'scale(1.5)';
-                follower.style.background = 'rgba(255,255,255,0.05)';
-                if (p.classList.contains('privacy-panel')) {
-                    follower.style.borderColor = 'black';
-                    follower.style.background = 'rgba(0,0,0,0.05)';
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
                 }
             });
-            p.addEventListener('mouseleave', () => {
-                follower.style.transform = 'scale(1)';
-                follower.style.background = 'transparent';
-                follower.style.borderColor = 'rgba(255,255,255,0.15)';
-            });
-        });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => observer.observe(el));
 
-        // Clock Update
-        setInterval(() => {
-            const time = new Date().toISOString().split('T')[1].split('.')[0] + ' UTC';
-            document.getElementById('clock').textContent = time;
-        }, 1000);
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getUTCHours()).padStart(2, '0');
+            const m = String(now.getUTCMinutes()).padStart(2, '0');
+            const s = String(now.getUTCSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = h + ':' + m + ':' + s + ' UTC';
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
     </script>
 </body>
 
