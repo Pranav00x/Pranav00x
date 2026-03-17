@@ -24,14 +24,16 @@ Blockchain   →  EVM · Sui · Farcaster · Arbitrum · Base
 Tools        →  Docker · Git · Telegram Bot API
 ```
 
-### Notable Projects
+### Currently Building
 
-| Project | Description |
-|---------|-------------|
-| [Tranzo](https://tranzo.money) | Crypto debit card platform |
-| [EVM-Wallet-Gen](https://github.com/Pranav00x/EVM-Wallet-Gen) | Automated EVM wallet address & key generator |
-| [ConfessChain](https://github.com/Pranav00x/ConfessChain) | Anonymous confessions on-chain |
-| [Stableunwrapper](https://github.com/Pranav00x/Stableunwrapper) | Swap USDT0 to gUSDT on Stable chain |
+<!-- Tranzo -->
+<a href="https://tranzo.money">
+  <img align="left" width="36" src="https://img.shields.io/badge/T-000?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjx0ZXh0IHg9IjUiIHk9IjE4IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiPlQ8L3RleHQ+PC9zdmc+" />
+</a>
+
+**[Tranzo](https://tranzo.money)** — Crypto debit card platform bridging web3 payments to the real world. Spend stablecoins anywhere, instantly.
+
+<br />
 
 ---
 
