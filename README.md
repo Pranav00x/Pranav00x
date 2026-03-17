@@ -1,6 +1,6 @@
 # Hey, I'm Pranav 👋
 
-**Builder & Developer** from India, currently building [FlowStable](https://flowstable.in) — a crypto infrastructure project.
+**Builder & Developer** from India, currently building [Tranzo](https://tranzo.money) — a crypto infrastructure project.
 
 [![Website](https://img.shields.io/badge/pranav0x.in-000?style=for-the-badge&logo=safari&logoColor=white)](https://pranav0x.in)
 [![Twitter](https://img.shields.io/badge/@Pranav0x-000?style=for-the-badge&logo=x&logoColor=white)](https://twitter.com/Pranav0x)
@@ -10,7 +10,7 @@
 
 ### What I'm Working On
 
-- **FlowStable** — Crypto debit card & stablecoin infrastructure
+- **Tranzo** — Crypto debit card & stablecoin infrastructure
 - **Web3 Tools** — Wallet generators, faucets, DeFi utilities
 - **Bots & Automation** — Telegram bots, on-chain automation scripts
 
@@ -28,11 +28,10 @@ Tools        →  Docker · Git · Telegram Bot API
 
 | Project | Description |
 |---------|-------------|
-| [FlowStable](https://flowstable.in) | Crypto debit card platform |
+| [Tranzo](https://tranzo.money) | Crypto debit card platform |
 | [EVM-Wallet-Gen](https://github.com/Pranav00x/EVM-Wallet-Gen) | Automated EVM wallet address & key generator |
 | [ConfessChain](https://github.com/Pranav00x/ConfessChain) | Anonymous confessions on-chain |
 | [Stableunwrapper](https://github.com/Pranav00x/Stableunwrapper) | Swap USDT0 to gUSDT on Stable chain |
-| [Farcaster Plinko](https://github.com/Pranav00x/farcaster-plinko-v2) | Plinko game built on Farcaster |
 
 ---
 
