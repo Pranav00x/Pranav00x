@@ -4,8 +4,8 @@
 
 **Builder · India**
 
-Focused on removing friction between crypto infrastructure and real-world use.  
-Currently building [Kova](https://kova.money) — a non-custodial crypto neobank where users authenticate with biometrics, own their wallets without seed phrases, and transact on-chain natively.
+I build crypto products that people can actually use.  
+Right now that's [Kova](https://kova.money) — a neobank where you sign in with your fingerprint and get a wallet. No extensions, no seed phrases, no nonsense.
 
 <br />
 
@@ -20,12 +20,10 @@ Currently building [Kova](https://kova.money) — a non-custodial crypto neobank
 ## What I Build
 
 **[Kova](https://kova.money)**  
-A non-custodial crypto neobank for everyone. No seed phrases, no browser extensions.  
-Passkey authentication (Face ID, fingerprint, Windows Hello) maps to a deterministic smart wallet via ZeroDev on Base.  
-The user just signs in — the wallet is theirs, always recoverable, never held by anyone else.
+Non-custodial crypto neobank. Passkey login, smart wallet on Base via ZeroDev. You sign in, you get a wallet — it's yours, not ours.
 
-**Web3 Infrastructure & Tooling**  
-Wallet generators, on-chain automation scripts, DeFi utilities, and Telegram bots across EVM chains.
+**Web3 Tooling**  
+Wallet generators, bots, on-chain scripts, DeFi utilities. Mostly EVM.
 
 ---
 
@@ -33,29 +31,22 @@ Wallet generators, on-chain automation scripts, DeFi utilities, and Telegram bot
 
 ```
 Languages    ->  TypeScript   JavaScript   Python   Solidity   C++
-
 Frontend     ->  Next.js   React   Tailwind CSS
-
 Backend      ->  Node.js   Express
-
-Auth         ->  WebAuthn   Passkeys   SimpleWebAuthn
-
+Auth         ->  WebAuthn   Passkeys
 Wallet       ->  ZeroDev   ERC-4337   viem   ethers.js
-
 Blockchain   ->  EVM   Base   Arbitrum   Sui   Farcaster
-
 Database     ->  MongoDB
-
 Infra        ->  Docker   Git   Vercel
 ```
 
 ---
 
-## Currently
+## Right Now
 
-- Building Kova MVP — Passkey auth + smart wallet on Base Sepolia
-- Integrating ZeroDev Kernel v3.1 for gasless, recoverable accounts
-- No seed phrases. No custodians. Just biometrics and a wallet.
+- Kova MVP — passkey auth + smart wallet on Base Sepolia
+- ZeroDev Kernel v3.1, gasless transactions, recoverable accounts
+- Shipping soon
 
 ---
 
@@ -68,10 +59,4 @@ Infra        ->  Docker   Git   Vercel
 
 <img src="https://github-readme-streak-stats.herokuapp.com?user=Pranav00x&theme=github-dark-blue&hide_border=true&background=0d1117&ring=ffffff&fire=ffffff&currStreakLabel=ffffff" width="100%" />
 
-</div>
-
----
-
-<div align="center">
-<sub>pranav0x.in &nbsp;·&nbsp; connect@pranav0x.in</sub>
 </div>
