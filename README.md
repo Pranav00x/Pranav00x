@@ -1,8 +1,8 @@
 # Pranav
 
-Builder from India, focused on web3 infrastructure and real-world crypto utility.
+Builder from India. Working at the intersection of crypto and real-world utility.
 
-Currently working on [Tranzo](https://tranzo.money) — a crypto debit card platform that lets users spend stablecoins anywhere.
+Currently building [Kova](https://kova.money) — a non-custodial crypto neobank with Passkey authentication and smart wallets.
 
 ---
 
@@ -14,8 +14,8 @@ Currently working on [Tranzo](https://tranzo.money) — a crypto debit card plat
 
 ### Work
 
-**[Tranzo](https://tranzo.money)**
-Crypto debit card and stablecoin infrastructure. Spend stablecoins in the real world, instantly.
+**[Kova](https://kova.money)**
+Non-custodial crypto neobank. Passkey auth, smart wallets via ZeroDev, no seed phrases. Built on Base.
 
 **Web3 Tooling**
 Wallet generators, on-chain automation, DeFi utilities, Telegram bots.
@@ -25,11 +25,13 @@ Wallet generators, on-chain automation, DeFi utilities, Telegram bots.
 ### Stack
 
 ```
-Languages    →  TypeScript  JavaScript  Python  Solidity  C++
-Frontend     →  Next.js  React
-Backend      →  Node.js  Express
-Blockchain   →  EVM  Arbitrum  Base  Sui  Farcaster
-Infra        →  Docker  Git  Telegram Bot API
+Languages    ->  TypeScript  JavaScript  Python  Solidity  C++
+Frontend     ->  Next.js  React
+Backend      ->  Node.js  Express
+Blockchain   ->  EVM  Base  Arbitrum  Sui  Farcaster
+Auth         ->  WebAuthn  Passkeys  SimpleWebAuthn
+Wallet       ->  ZeroDev  ERC-4337  viem  ethers
+Infra        ->  Docker  Git  MongoDB
 ```
 
 ---
